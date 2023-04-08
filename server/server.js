@@ -20,6 +20,73 @@ app.get("/foo", (req, res) => {
   return res.send({ hey: "I just met you" });
 });
 
+io.on('connection', socket => {
+	console.log("user connected");
+	start_listener();
+});
+
+function Room (rid) {
+	this.rid = rid;
+	this.members = [];
+	this.requests = {};
+}
+const rooms = {};
+
+// create new room instance 
+const on_room_create_req = (socket, msg) => {
+	if (!('rid' in msg.hdr)) return console.error("no roomID specified");
+	const rid = msg.hdr.rid;
+	const room = new Room(rid);
+	room.members.push(socket);
+	rooms[rid] = room;
+
+	console.log(`Created room '${rid}'`);
+}
+
+// forward request too all in room, map BoxK to socket.
+const on_room_join_req = (socket, msg) => {
+	if (!('rid' in msg.hdr)) return console.error("no roomID specified");
+	const rid 	= msg.hdr.rid;
+	const boxK 	= msg.hdr.boxK;
+	const room 	= rooms[rid];
+	room.requests[boxK] = socket;
+	room.members.forEach( member => {
+		member.emit('room-join-req', msg);
+		// Set timeout 
+		setTimeout( () => delete room.request[boxK], 10000);
+	});
+}
+
+// Fetches target socket from request map, forwards. 
+const on_room_join_rsp = (socket, msg) => {
+		if (!msg.hdr.approved) return console.log("Not approved");
+		if (!('dstK' in msg.hdr)) return console.error("Source not specified")
+		if (!('room' in socket.data)) return console.error("Not in room");
+
+		const room = rooms[socket.data.room];
+		const dstK = msg.hdr.dstK;
+
+		if (!(dstK in room.request)) return console.error("None such request");
+
+		const target = room.requests[dstK];
+		target.emit('room-join-rsp', msg);	
+
+}
+
+const start_listener = socket => {
+	socket.on('room-create-req', msg => on_room_create_req(socket, msg));
+	socket.on('room-join-req', 	 msg => on_room_join_req(socket, msg));
+	socket.on('room-join-rsp', msg => on_room_join_rsp(socket, msg)); 
+	socket.on('msg', msg => {
+		console.log("msg rcv: ", msg);
+		if (socket.data.room == undefined) 
+			return console.error("Not in room");
+
+		rooms[socket.data.room].members.forEach(member => member.emit('msg', msg));
+	});
+}
+
+
 server.listen(PORT, () => {
   console.log("Listening on port: ", PORT);
 });
