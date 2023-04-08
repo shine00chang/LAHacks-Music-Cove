@@ -31,6 +31,7 @@ export default class E2E {
 		this.socket = io.connect(URL, opts);
 		this.nick 	= nick;
 		this.nick_table = {};
+		this.requests = [];
 
 		{ // Set Keys	
 			this.keys 	= { shared: undefined, box: {}, sign: {} };
