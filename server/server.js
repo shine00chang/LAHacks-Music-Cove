@@ -10,7 +10,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: CLIENT_URL,
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
@@ -22,7 +22,7 @@ app.get("/foo", (req, res) => {
 
 io.on('connection', socket => {
 	console.log("user connected");
-	start_listener();
+	start_listener(socket);
 });
 
 function Room (rid) {
@@ -36,24 +36,29 @@ const rooms = {};
 const on_room_create_req = (socket, msg) => {
 	if (!('rid' in msg.hdr)) return console.error("no roomID specified");
 	const rid = msg.hdr.rid;
+
+	if (rid in rooms) return socket.emit('room-create-rsp', { hdr:{approved: false, err: `room '${rid}' already exists`}});
 	const room = new Room(rid);
 	room.members.push(socket);
 	rooms[rid] = room;
 
+	socket.emit('room-create-rsp', { hdr: { approved: true } })
 	console.log(`Created room '${rid}'`);
 }
 
 // forward request too all in room, map BoxK to socket.
 const on_room_join_req = (socket, msg) => {
+	console.log("join req received: ", msg);
 	if (!('rid' in msg.hdr)) return console.error("no roomID specified");
 	const rid 	= msg.hdr.rid;
 	const boxK 	= msg.hdr.boxK;
 	const room 	= rooms[rid];
 	room.requests[boxK] = socket;
+
 	room.members.forEach( member => {
 		member.emit('room-join-req', msg);
 		// Set timeout 
-		setTimeout( () => delete room.request[boxK], 10000);
+		setTimeout( () => delete room.requests[boxK], 10000);
 	});
 }
 
