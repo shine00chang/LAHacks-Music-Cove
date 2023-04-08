@@ -1,6 +1,7 @@
 <script>
     import Faq from "./faq.svelte";
     import Contact from "./contact.svelte";
+    import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte'
 
     function create_room() {
         window.location =
@@ -8,26 +9,31 @@
             document.getElementById("room-name").value +
             "?create=true";
     }
-    export let menu;
 </script>
 
+<Navbar let:hidden let:toggle rounded color="form">
+    <NavBrand href="/">
+      <img
+        src="https://cdn.discordapp.com/attachments/1088612557008420864/1094393611543662702/image.png"
+        class="mr-3 h-6 sm:h-9"
+        alt="M Logo"
+      />
+      <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+        MusicCove
+      </span>
+    </NavBrand>
+    <NavHamburger on:click={toggle} />
+    <NavUl {hidden}>
+      <NavLi href="/" active={true}>Home</NavLi>
+      <NavLi href="/faq">FAQ</NavLi>
+      <NavLi href="/contact">Contact</NavLi>
+    </NavUl>
+  </Navbar>
 <svelte:head>
     <link href="/front.css" rel="stylesheet" />
 </svelte:head>
 
 <div id="bg" class="scroll">
-    <ul id="menu">
-        <li><a href="/" on:click|preventDefault={() => (menu = 1)}>FAQ</a></li>
-        |
-        <li>
-            <a href="/" on:click|preventDefault={() => (menu = 2)}>Contact</a>
-        </li>
-    </ul>
-    {#if menu === 1}
-        <Faq />
-    {:else if menu === 2}
-        <Contact />
-    {:else}{/if}
     <h1>MusicCove</h1>
 
     <form>
@@ -43,10 +49,6 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
-    }
-    ul#menu li {
-        display: inline;
-        text-align: left;
     }
     h1 {
         font-family: "Verdana";
