@@ -21,6 +21,10 @@ function otou (o) {
 	return new TextEncoder().encode( JSON.stringify(o) );
 }
 
+function gen_nonce() {
+	return nacl.randomBytes(24);
+}
+
 export default class E2E {
 	constructor (nick) {
 		const opts 	= {};
@@ -42,7 +46,9 @@ export default class E2E {
 	}
 
 	send_create_req (rid) {
-		console.log("'Create Room' Request sent");	
+		console.log("'Create Room' Request sent");
+		//generate 32 bytes shared key for secret key encryption
+		this.keys.shared = utoh(nacl.randomBytes(32))	
 		// TODO: Send rid.
 		
 	};
@@ -83,7 +89,7 @@ export default class E2E {
 					return socket.emit('room-join-rsp', {hdr: {approved: false}});	
 				
 				// TODO: BOX table, secret Key
-				const nonce = utoh( nacl.randomBytes(24) );
+				const nonce = utoh( gen_nonce() );
 				const hdr	= { approved: true, boxK: this.key.box.pub, nonce: nonce };
 				const data 	= { nick_table: this.nick_table, shared_secret: this.keys.shared };
 			
