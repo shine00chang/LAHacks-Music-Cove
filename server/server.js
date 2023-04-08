@@ -32,9 +32,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     //remove socket from room once it disconnects, delete room if no one connected
     rooms[socket.data.room].members = rooms[socket.data.room].members.filter(
-      function (s) {
-        return s.id !== socket.id;
-      }
+      (s) => s.id !== socket.id
     );
     if (rooms[socket.data.room].members.length === 0) {
       delete rooms[socket.data.room];
