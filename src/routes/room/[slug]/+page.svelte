@@ -1,7 +1,7 @@
 <script>
   //imports and exports
-  import Navbar from "./Navbar.svelte";
-  import Sidebar from "./Sidebar.svelte";
+  import Navbar from "$lib/Navbar.svelte";
+  import Sidebar from "$lib/Sidebar.svelte";
   let open = false;
 
   import { page } from '$app/stores';
