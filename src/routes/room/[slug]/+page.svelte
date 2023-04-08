@@ -14,11 +14,7 @@
 
   // Binded Vars
   let nickname = "";
-<<<<<<< Updated upstream
-  
-=======
   //init E2E class
->>>>>>> Stashed changes
   let e2e;
   let generate = false;
   let in_room = false;
@@ -37,15 +33,3 @@
 
 <!--Modal thing that gets nickname and indicates when E2E should be init'd-->
 <Start bind:nickname bind:generate />
-<<<<<<< Updated upstream
-
-{#if in_room}
-  <!--If user has the secret key, show them all the components -->
-  <h2>YOU IN DA ROOM</h2>
-  <SCPlay current_soundcloud_url="https://soundcloud.com/7opi5oei5fbj/summer-slack"/>
-{:else if generate}
-  <!--Show them waiting for approval-->
-  <h2>Waiting for Approval...</h2>
-{/if}
-=======
->>>>>>> Stashed changes
