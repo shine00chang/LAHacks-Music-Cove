@@ -1,2 +1,13 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+  function create_room() {
+    window.location = "/room/"+document.getElementById("room-name").value+"?create=true";
+  }
+</script>
+
+<h1>MusicCove</h1>
+
+<form>
+  <h2>Create Room</h2>
+  <input id="room-name" type="text" placeholder="Room name..."/>
+  <button on:click={create_room}>Create</button>
+</form>
