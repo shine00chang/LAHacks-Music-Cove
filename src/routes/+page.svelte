@@ -9,7 +9,6 @@
     }
     export let menu;
 </script>
-<main>
 <svelte:head>
     <link href="/front.css" rel="stylesheet" />
 </svelte:head>
@@ -36,7 +35,6 @@
     </form>
     <image src="https://cdn.discordapp.com/attachments/1088612557008420864/1094377679362469969/beacch.png"></image>
 </div>
-</main>
 <style>
     div#bg {
         background: rgb(2, 0, 36);
