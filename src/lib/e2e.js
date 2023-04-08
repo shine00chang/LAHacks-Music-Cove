@@ -26,6 +26,7 @@ export default class E2E {
 		const opts 	= {};
 		this.socket = io.connect(URL, opts);
 		this.nick 	= nick;
+		this.nick_table = {};
 
 		{ // Set Keys	
 			this.keys 	= { shared: undefined };
@@ -69,13 +70,30 @@ export default class E2E {
 		this.socket.once(event, callback);
 	}
 
-	on_join_req (callback) {
-		this.socket.on('room-join-req', callback);
-	}
-
-	on_join_req_rsp (approved) {
-		if (!approved) {
-			send()	
-		}
+	#start_join_req_handler (callback) {
+		this.socket.on('room-join-req', msg => {
+			// Extract Peer Info
+			const nick 		= msg.hdr.nick;
+			const peer_boxK = msg.hdr.boxK;
+	
+			// Construct approval CB
+			const cb = approved => {
+				// If rejected, send plain header
+				if (!approved) 
+					return socket.emit('room-join-rsp', {hdr: {approved: false}});	
+				
+				// TODO: BOX table, secret Key
+				const nonce = utoh( nacl.randomBytes(24) );
+				const hdr	= { approved: true, boxK: this.key.box.pub, nonce: nonce };
+				const data 	= { nick_table: this.nick_table, shared_secret: this.keys.shared };
+			
+				const msg = {
+					hdr: hdr,
+					data: nacl.box( otou(data), htou(nonce), htou(peer_boxK), htou(this.keys.box) );
+				}
+			}
+			// Store Info:CB pair into list
+			this.requests.add( {nick: nick, callback: cb} );
+		});
 	}
 }
