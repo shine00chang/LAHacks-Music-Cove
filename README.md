@@ -1,38 +1,15 @@
-# create-svelte
+# Music Cove
+An ultra private, secure, and easy to use hangout space.
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+By using our handmade End to End Encryption Protocol, all messages sent are private and secure - not even the server can read your messages! (todo: add TOR page)
 
-## Creating a project
+Made for Los Altos Hacks 7.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Quick Overview
+This image give a quick overview of how our homemade e2e encryption protocol works. (todo: add more detail in actual readme)
+![Crypography overview](docs/draft_cryptography_dos.png)
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Self-hosting Backend
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Self-hosting Frontend
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
