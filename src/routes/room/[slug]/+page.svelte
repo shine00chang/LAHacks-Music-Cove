@@ -14,7 +14,11 @@
 
   // Binded Vars
   let nickname = "";
+<<<<<<< Updated upstream
   
+=======
+  //init E2E class
+>>>>>>> Stashed changes
   let e2e;
   let generate = false;
   let in_room = false;
@@ -29,14 +33,11 @@
   }
 </script>
 
-<svelte:head>
-  <link href="../../rooms.css" rel="stylesheet" />
-</svelte:head>
-
 <h1>Room: {ROOM_NAME}</h1>
 
 <!--Modal thing that gets nickname and indicates when E2E should be init'd-->
 <Start bind:nickname bind:generate />
+<<<<<<< Updated upstream
 
 {#if in_room}
   <!--If user has the secret key, show them all the components -->
@@ -46,3 +47,5 @@
   <!--Show them waiting for approval-->
   <h2>Waiting for Approval...</h2>
 {/if}
+=======
+>>>>>>> Stashed changes

@@ -1,6 +1,7 @@
 <script>
     import Faq from "./faq.svelte";
     import Contact from "./contact.svelte";
+
     function create_room() {
         window.location =
             "/room/" +
@@ -9,6 +10,7 @@
     }
     export let menu;
 </script>
+
 <svelte:head>
     <link href="/front.css" rel="stylesheet" />
 </svelte:head>
@@ -33,20 +35,18 @@
         <input id="room-name" type="text" placeholder="Room name..." />
         <button on:click={create_room}>Create</button>
     </form>
-    <image src="https://cdn.discordapp.com/attachments/1088612557008420864/1094377679362469969/beacch.png"></image>
 </div>
+
 <style>
     div#bg {
-        background: rgb(2, 0, 36);
-        background: linear-gradient(
-            0deg,
-            rgba(2, 0, 36, 1) 0%,
-            rgba(9, 102, 121, 1) 15%,
-            rgba(0, 212, 255, 1) 100%
-        );
+        background-image: url("https://wallpaperaccess.com/full/1261201.jpg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
     }
     ul#menu li {
         display: inline;
+        text-align: left;
     }
     h1 {
         font-family: "Verdana";
