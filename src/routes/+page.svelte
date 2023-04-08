@@ -37,9 +37,8 @@
     <h1>MusicCove</h1>
 
     <form>
-        <h2>Create Room</h2>
         <input id="room-name" type="text" placeholder="Room name..." />
-        <button on:click={create_room}>Create</button>
+        <button on:click={create_room} style="color: azure">Create</button>
     </form>
 </div>
 
@@ -53,6 +52,7 @@
     h1 {
         font-family: "Verdana";
         color: azure;
+        font-size: 50px;
         height: 80px;
         align-self: center;
     }
