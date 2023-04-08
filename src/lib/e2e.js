@@ -30,6 +30,7 @@ export default class E2E {
 		const opts 	= {};
 		this.socket = io.connect(URL, opts);
 		this.nick 	= nick;
+		this.rid 	= undefined;
 		this.nick_table = {};
 		this.requests = [];
 
@@ -46,18 +47,58 @@ export default class E2E {
 		}
 	}
 
-	send_create_req (rid) {
+	send_create_req (rid, onsucess) {
 		console.log("'Create Room' Request sent");
 		//generate 32 bytes shared key for secret key encryption
 		this.keys.shared = utoh(nacl.randomBytes(32))	
-		// TODO: Send rid.
-		//
+		
+		// Send rid.
+		const msg = { hdr: {rid: rid} };
+		this.socket.emit("room-create-req", msg);	
+		const timeout = setTimeout( () => {
+			console.log("timed out");
+			alert("time out");
+			this.socket.off("room-create-rsp");
+		}, 10000);
+		this.socket.once("room-create-rsp", msg => {
+			if (!msg.hdr.approved) 
+				return console.error('room creation rejected');
+			console.log("room created");
+			this.rid = rid;
+			clearTimeout(timeout);
+			onsucess();
+		});
+
 	};
 	
-	send_join_req (rid, hash) {
+	send_join_req (rid, hash, onsucess) {
 		console.log("'Join Room' Request sent");	
-		// TODO: Send Box key, rid, nick 
-		//
+		
+		// Send Box key, rid, nick 
+		const msg = {
+			hdr: { 
+				rid: rid,
+				boxK: this.keys.box.pub,
+				nick: this.nick,
+			}
+		};
+		this.socket.emit("room-join-req", msg);
+		const timeout = setTimeout(() => {
+			console.log("timed out");
+			alert("timed out");
+			this.socket.off("room-join-rsp");
+		}, 10000);
+		this.socket.once("room-join-rsp", msg => {
+			console.log("join response: ", msg);
+			if (!msg.hdr.approved) 
+				return console.error("request rejected");
+			
+			console.log("joined room: ", rid);
+			this.rid = rid;
+			clearTimeout(timeout);
+			onsucess();
+		});
+
 	};
 	
 	send (hdr, data) {
@@ -80,12 +121,21 @@ export default class E2E {
 
 	#start_join_req_handler (callback) {
 		this.socket.on('room-join-req', msg => {
+			console.log("room-join-req received", msg);
+
 			// Extract Peer Info
 			const nick 		= msg.hdr.nick;
 			const peer_boxK = msg.hdr.boxK;
+
+			if (this.requests.find((item) => item.public_key === peer_boxK)) {
+				console.log("Request already pending");
+				return;
+			}
 	
 			// Construct approval CB
 			const cb = approved => {
+				//remove from requests once approved/declined
+				this.requests = this.requests.filter((item) => item.public_key !== peer_boxK);
 				// If rejected, send plain header
 				if (!approved) 
 					return socket.emit('room-join-rsp', {hdr: {approved: false}});	
@@ -94,14 +144,16 @@ export default class E2E {
 				const nonce = utoh( gen_nonce() );
 				const hdr	= { approved: true, boxK: this.key.box.pub, nonce: nonce };
 				const data 	= { nick_table: this.nick_table, shared_secret: this.keys.shared };
-			
+				
 				const msg = {
 					hdr: hdr,
 					data: nacl.box( otou(data), htou(nonce), htou(peer_boxK), htou(this.keys.box) )
 				}
+
+				//todo: send message
 			}
 			// Store Info:CB pair into list
-			this.requests.add( {nick: nick, callback: cb} );
+			this.requests.add( {nick: nick, public_key: peer_boxK, approve_callback: cb} );
 		});
 	}
 }

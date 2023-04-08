@@ -12,14 +12,23 @@
   },
   "devDependencies": {
     "@sveltejs/kit": "^1.5.0",
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.14",
+    "postcss-load-config": "^4.0.1",
     "svelte": "^3.54.0",
+    "svelte-preprocess": "^4.10.7",
+    "tailwindcss": "^3.1.5",
     "vite": "^4.2.0"
   },
   "type": "module",
   "dependencies": {
     "@sveltejs/adapter-auto": "^2.0.0",
     "bootstrap-icons": "^1.10.4",
+    "@popperjs/core": "^2.11.7",
+    "classnames": "^2.3.2",
     "express": "^4.18.2",
+    "flowbite": "^1.6.4",
+    "flowbite-svelte": "^0.34.7",
     "nodemon": "^2.0.22",
     "prettier": "^2.8.7",
     "socket.io": "^4.6.1",
