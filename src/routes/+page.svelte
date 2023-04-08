@@ -38,11 +38,14 @@
 
     <form>
         <input id="room-name" type="text" placeholder="Room name..." />
-        <button on:click={create_room} style="color: azure">Create</button>
+        <button on:click={create_room} id="button" style="color: azure">Create</button>
     </form>
 </div>
 
 <style>
+    button {
+        font-family: "Verdana";
+    }
     div#bg {
         background-image: url("https://wallpaperaccess.com/full/1261201.jpg");
         background-repeat: no-repeat;
