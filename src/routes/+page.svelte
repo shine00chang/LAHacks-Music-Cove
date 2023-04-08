@@ -1,3 +1,7 @@
+<svelte:head>
+  <link href="/front.css" rel="stylesheet">
+</svelte:head>
+
 <script>
     import Faq from "./faq.svelte";
     import Contact from "./contact.svelte";
@@ -6,7 +10,10 @@
   }
   export let menu;
 </script>
-<body>
+<div id="bg">
+
+
+  
 <ul id="menu">
 	<li><a href="/" on:click|preventDefault={() => (menu = 1)}>FAQ</a></li> |
 	<li><a href="/" on:click|preventDefault={() => (menu = 2)}>Contact</a></li>
@@ -25,9 +32,9 @@
   <input id="room-name" type="text" placeholder="Room name..."/>
   <button on:click={create_room}>Create</button>
 </form>
-</body>
+</div>
 <style>
-    body{
+    div#bg{
 		background: rgb(2,0,36);
 		background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,102,121,1) 15%, rgba(0,212,255,1) 100%);
     }
@@ -35,8 +42,8 @@
 		display : inline;
 	}
     h1 {
-        background-color: rgba(0, 0, 0, 0.8);
-        font: "Comic Sans";
+        font-family: "Verdana";
+        color:azure;
         height: 80px;
         align-self: center;
     }
