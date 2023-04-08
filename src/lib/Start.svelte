@@ -2,7 +2,6 @@
   export let nickname = "";
   export let generate = false;
   $: {
-    console.log('e')
     nickname = nickname.trim();
     if (nickname.length !== 0) {
       can_continue = true;

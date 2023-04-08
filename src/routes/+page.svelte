@@ -2,9 +2,6 @@
   function create_room() {
     window.location = "/room/"+document.getElementById("room-name").value+"?create=true";
   }
-  let generated;
-  let nickname;
-  //$: (init the e2e class and stuff)
 </script>
 
 <h1>MusicCove</h1>

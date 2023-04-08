@@ -29,15 +29,15 @@ export default class E2E {
 		this.nick_table = {};
 
 		{ // Set Keys	
-			this.keys 	= { shared: undefined };
+			this.keys 	= { shared: undefined, box: {}, sign: {} };
 			
 			const boxK 	= nacl.box.keyPair();
 			this.keys.box.pub 	= utoh( boxK.publicKey ); 
-			this.keys.box.pri 	= utoh( boxK.privateKey ); 
+			this.keys.box.pri 	= utoh( boxK.secretKey ); 
 
 			const signK 	= nacl.sign.keyPair();
 			this.keys.sign.pub 	= utoh( signK.publicKey ); 
-			this.keys.sign.pri 	= utoh( signK.privateKey ); 
+			this.keys.sign.pri 	= utoh( signK.secretKey ); 
 		}
 	}
 
@@ -89,7 +89,7 @@ export default class E2E {
 			
 				const msg = {
 					hdr: hdr,
-					data: nacl.box( otou(data), htou(nonce), htou(peer_boxK), htou(this.keys.box) );
+					data: nacl.box( otou(data), htou(nonce), htou(peer_boxK), htou(this.keys.box) )
 				}
 			}
 			// Store Info:CB pair into list
