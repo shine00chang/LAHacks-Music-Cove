@@ -50,12 +50,13 @@ export default class E2E {
 		//generate 32 bytes shared key for secret key encryption
 		this.keys.shared = utoh(nacl.randomBytes(32))	
 		// TODO: Send rid.
-		
+		//
 	};
 	
 	send_join_req (rid, hash) {
 		console.log("'Join Room' Request sent");	
 		// TODO: Send Box key, rid, nick 
+		//
 	};
 	
 	send (hdr, data) {

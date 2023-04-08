@@ -1,3 +1,7 @@
+<svelte:head>
+  <link href="../../rooms.css" rel="stylesheet">
+</svelte:head>
+
 <script>
   //imports and exports
   import { page } from '$app/stores';
@@ -11,7 +15,15 @@
   console.log(ROOM_NAME, create)
   let nickname = "";
   //init E2E class
+  let in_room = false;
   let e2e;
+  $: {
+    if (e2e) {
+      if (e2e.keys.shared) {
+        in_room = true;
+      }
+    }
+  }
   let generate = false;
   $: {
     if (generate) {
@@ -30,3 +42,11 @@
 
 <!--Modal thing that gets nickname and indicates when E2E should be init'd-->
 <Start bind:nickname={nickname} bind:generate={generate}/>
+
+{#if in_room}
+  <!--If user has the secret key, show them all the components -->
+  <h2>YOU IN DA ROOM</h2>
+{:else if generate}
+  <!--Show them waiting for approval-->
+  <h2>Waiting for Approval...</h2>
+{/if}

@@ -1,3 +1,7 @@
+<svelte:head>
+  <link href="/front.css" rel="stylesheet">
+</svelte:head>
+
 <script>
     import Faq from "./faq.svelte";
     import Contact from "./contact.svelte";
