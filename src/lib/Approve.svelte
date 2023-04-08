@@ -8,7 +8,7 @@
   }
 </script>
 
-<div>
+<div class="widget">
   <h2>Pending Requests</h2>
   <div>
     {#each requests as req}
