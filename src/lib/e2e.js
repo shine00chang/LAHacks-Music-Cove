@@ -83,9 +83,16 @@ export default class E2E {
 			// Extract Peer Info
 			const nick 		= msg.hdr.nick;
 			const peer_boxK = msg.hdr.boxK;
+
+			if (this.requests.find((item) => item.public_key === peer_boxK)) {
+				console.log("Request already pending");
+				return;
+			}
 	
 			// Construct approval CB
 			const cb = approved => {
+				//remove from requests once approved/declined
+				this.requests = this.requests.filter((item) => item.public_key !== peer_boxK);
 				// If rejected, send plain header
 				if (!approved) 
 					return socket.emit('room-join-rsp', {hdr: {approved: false}});	
@@ -94,14 +101,16 @@ export default class E2E {
 				const nonce = utoh( gen_nonce() );
 				const hdr	= { approved: true, boxK: this.key.box.pub, nonce: nonce };
 				const data 	= { nick_table: this.nick_table, shared_secret: this.keys.shared };
-			
+				
 				const msg = {
 					hdr: hdr,
 					data: nacl.box( otou(data), htou(nonce), htou(peer_boxK), htou(this.keys.box) )
 				}
+
+				//todo: send message
 			}
 			// Store Info:CB pair into list
-			this.requests.add( {nick: nick, callback: cb} );
+			this.requests.add( {nick: nick, public_key: peer_boxK, approve_callback: cb} );
 		});
 	}
 }
