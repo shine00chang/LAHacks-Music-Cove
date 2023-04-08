@@ -2,6 +2,7 @@
   //imports and exports
   import { page } from "$app/stores";
   import Start from "$lib/Start.svelte";
+  import SCPlay from "$lib/SCPlay.svelte";
   import E2E from "$lib/e2e.js";
   export let data;
   //start stuff
@@ -46,6 +47,7 @@
 {#if in_room}
   <!--If user has the secret key, show them all the components -->
   <h2>YOU IN DA ROOM</h2>
+  <SCPlay current_soundcloud_url="https://soundcloud.com/7opi5oei5fbj/summer-slack"/>
 {:else if generate}
   <!--Show them waiting for approval-->
   <h2>Waiting for Approval...</h2>
