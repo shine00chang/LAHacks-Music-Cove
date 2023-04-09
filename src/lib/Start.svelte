@@ -15,8 +15,7 @@
 	onsubmit();
   }
 </script>
-<body style="margin: 0">
-  <div id="start-modal">
+  <div id="start-modal" class="gradient_background">
     <div>
       <h2 class="key-title">Set Nickname</h2>
       <input class="nickname_input" bind:value={nickname} placeholder="Nickname here..."/>
@@ -27,7 +26,6 @@
       {/if}
     </div>
   </div>
-</body>
 
 <style>
     * {
@@ -44,7 +42,7 @@
       text-align: center;
     }
 
-      body {
+      .gradient_background {
         background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
         background-size: 400% 400%;
         animation: gradient 15s ease infinite;
