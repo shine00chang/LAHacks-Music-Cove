@@ -444,11 +444,20 @@
 </div>
 
 <style>
+<<<<<<< Updated upstream
+  .main {
+    padding: 6px;
+    padding-bottom: 0px;
+    height: 100%;
+    overflow: hidden;
+  }
+=======
 	.main {
 		padding: 6px;
 		height: 100%;
 		overflow: hidden;
 	}
+>>>>>>> Stashed changes
 
 	#grid-container {
 		height: 100vh;
