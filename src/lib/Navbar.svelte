@@ -14,7 +14,7 @@
     
     /*<div class="me-auto order-0" style="margin-left: 5%">
         <!--<a class = "navbar-brand mr-auto" href="#">Here</a> -->
-        <input type="text" id="join_url" value={share_room_url}>
+        <input type="text" id="join_url" value={share_room_url ? share_room_url : "pending"}>
         <button onclick="copy_join()" class="btn btn-danger">Copy text</button>
         <script>
     

@@ -7,9 +7,8 @@ const config = {
   theme: {
     extend: {},
   },
-
+  
   plugins: [require("flowbite/plugin")],
-  darkMode: "class",
+  darkMode: 'class'
 };
-
 module.exports = config;
