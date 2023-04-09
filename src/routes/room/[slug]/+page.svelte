@@ -1,18 +1,19 @@
 <script>
 	//imports and exports
 	import Navbar from "$lib/Navbar.svelte";
+	import { Spinner } from "flowbite-svelte";
 	import Sidebar from "$lib/Sidebar.svelte";
 	import { Alert } from "flowbite-svelte";
 	let open = false;
 	let alert_type = 0;
 	import { onMount } from "svelte";
 	import { page } from "$app/stores";
-  import GameModal from "$lib/GameModal.svelte";
+	import GameModal from "$lib/GameModal.svelte";
 	import Start from "$lib/Start.svelte";
 	import Approve from "$lib/Approve.svelte";
 	import SCPlay from "$lib/SCPlay.svelte";
 	import Chat from "$lib/Chat.svelte";
-  import ScoreBoard from "$lib/ScoreBoard.svelte";
+	import ScoreBoard from "$lib/ScoreBoard.svelte";
 
 	import io from "socket.io-client";
 	import nacl from "tweetnacl";
@@ -26,16 +27,16 @@
 	const create = $page.url.searchParams.get("create") === "true";
 	console.log(ROOM_NAME, create);
 
-  let share_alert_ran = false;
+	let share_alert_ran = false;
 
 	let share_room_url;
 	$: {
 		if (share_room_url && create && !share_alert_ran) {
 			alert_type = "share-alert";
-      share_alert_ran = true;
-      setTimeout(() => {
-        alert_type = 0;
-      }, 2000);
+			share_alert_ran = true;
+			setTimeout(() => {
+				alert_type = 0;
+			}, 2000);
 		}
 	}
 
@@ -69,11 +70,12 @@
 	let nick_table = {};
 	let nickname = "";
 	let requests = [];
-  
-  let waiting = false;
+
+	let waiting = false;
 	const keys = { shared: undefined, box: {}, sign: {} };
 
-	{ // Set Keys
+	{
+		// Set Keys
 		const boxK = nacl.box.keyPair();
 		keys.box.pub = utoh(boxK.publicKey);
 		keys.box.pri = utoh(boxK.secretKey);
@@ -293,9 +295,9 @@
 				title: data.title,
 			});
 			song_queue = [...song_queue];
-      if (song_queue.length === 1) {
-        play_next_no_remove();
-      }
+			if (song_queue.length === 1) {
+				play_next_no_remove();
+			}
 		});
 
 		document.addEventListener("song-remove", (event) => {
@@ -317,30 +319,29 @@
 		});
 	});
 
-	let current_soundcloud_url =
-		"";
+	let current_soundcloud_url = "";
 
-  function play_next_no_remove() {
-    current_soundcloud_url = song_queue[0]?.url;
-    console.log(song_queue.length, song_queue)
-    if (song_queue.length > 1) {
-      song_queue.shift();
-    }
-    if (!current_soundcloud_url) {
-      current_soundcloud_url = "";
-    }
-    console.log("NEXT SONG NO REMOVE", current_soundcloud_url)
-  }
+	function play_next_no_remove() {
+		current_soundcloud_url = song_queue[0]?.url;
+		console.log(song_queue.length, song_queue);
+		if (song_queue.length > 1) {
+			song_queue.shift();
+		}
+		if (!current_soundcloud_url) {
+			current_soundcloud_url = "";
+		}
+		console.log("NEXT SONG NO REMOVE", current_soundcloud_url);
+	}
 
 	function play_next() {
-    song_queue.shift();
-    current_soundcloud_url = song_queue[0]?.url;
-    console.log(song_queue.length, song_queue)
-    if (!current_soundcloud_url) {
-      current_soundcloud_url = "";
-    }
-    console.log("NEXT SONG", current_soundcloud_url)
-  }
+		song_queue.shift();
+		current_soundcloud_url = song_queue[0]?.url;
+		console.log(song_queue.length, song_queue);
+		if (!current_soundcloud_url) {
+			current_soundcloud_url = "";
+		}
+		console.log("NEXT SONG", current_soundcloud_url);
+	}
 </script>
 
 <svelte:head>
@@ -417,70 +418,80 @@
 	{#if keys.shared !== undefined}
 		<!--If user has the secret key, show them all the components -->
 		<div id="grid-container">
-      <div id="approve-container" class="grid-item">
+			<div id="approve-container" class="grid-item">
 				<Approve {requests} />
-        <SCPlay {current_soundcloud_url} {play_next} />
-				<button on:click={() => console.log(nick_table)}>Dump Table</button>
-      </div>
+				<SCPlay {current_soundcloud_url} {play_next} />
+				<button on:click={() => console.log(nick_table)}
+					>Dump Table</button
+				>
+			</div>
 
-      <div id="chat-container" class="grid-item">
+			<div id="chat-container" class="grid-item">
 				<Chat {nickname} emit={send} />
 			</div>
 
 			<div id="game-container" class="grid-item">
-        <GameModal nickname={nickname} emit={send}/>
-        <ScoreBoard />
+				<GameModal {nickname} emit={send} />
+				<ScoreBoard class="text-center"/>
 			</div>
 		</div>
-
-  {:else if waiting}
-    <!--Show them waiting for approval-->
-      <h1>Room: {ROOM_NAME}</h1>
-      <h2>Waiting for Approval...</h2>
-  {/if}
+	{:else if waiting}
+		<!--Show them waiting for approval-->
+		<h1 style="text-align: center">Room: {ROOM_NAME}</h1>
+		<h2 style="text-align: center">Waiting for Approval...</h2>
+		<div class="text-center"><Spinner/></div>
+	{/if}
 </div>
 
 <style>
+<<<<<<< Updated upstream
   .main {
     padding: 6px;
     padding-bottom: 0px;
     height: 100%;
     overflow: hidden;
   }
+=======
+	.main {
+		padding: 6px;
+		height: 100%;
+		overflow: hidden;
+	}
+>>>>>>> Stashed changes
 
-  #grid-container {
-	height: 100vh;
-	background-color: #2d2d2d;
-  }
-  #chat-container {
-	height: 90%;
-	width: 90%;
-	border-radius: 20px;
-	background-color: #4f4f4f;
-	margin: 5px;
-	margin-top: 5px;
-	margin-bottom: 15px;
-  }
+	#grid-container {
+		height: 100vh;
+		background-color: #2d2d2d;
+	}
+	#chat-container {
+		height: 90%;
+		width: 90%;
+		border-radius: 20px;
+		background-color: #4f4f4f;
+		margin: 5px;
+		margin-top: 5px;
+		margin-bottom: 15px;
+	}
 
-  #approve-container {
-	height: 44%;
-	width: 90%;
-	border-radius: 20px;
-	background-color: #4f4f4f;
-	margin: 5px;
-	margin-top: 5px;
-	margin-bottom: 15px
-  }
+	#approve-container {
+		height: 44%;
+		width: 90%;
+		border-radius: 20px;
+		background-color: #4f4f4f;
+		margin: 5px;
+		margin-top: 5px;
+		margin-bottom: 15px;
+	}
 
-  #sc-play-container {
-	height: 44%;
-	width: 90%;
-	border-radius: 20px;
-	background-color: #4f4f4f;
-	margin: 5px;
-	margin-top: 5px;
-	margin-bottom: 15px
-  }
+	#sc-play-container {
+		height: 44%;
+		width: 90%;
+		border-radius: 20px;
+		background-color: #4f4f4f;
+		margin: 5px;
+		margin-top: 5px;
+		margin-bottom: 15px;
+	}
 
 	#grid-container {
 		display: grid;
