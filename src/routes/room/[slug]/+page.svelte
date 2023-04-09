@@ -417,25 +417,23 @@
 	/>
 	{#if keys.shared !== undefined}
 		<!--If user has the secret key, show them all the components -->
+		<div id="grid-container">
+			<div id="approve-container" class="grid-item">
+				<Approve {requests} />
+				<SCPlay {current_soundcloud_url} {play_next} />
+				<button on:click={() => console.log(nick_table)}
+					>Dump Table</button
+				>
+			</div>
 
-		<div id="grid-container" class="row">
-      <div class="col-sm">
-        <Chat {nickname} emit={send} />
-      </div>
-   
-      <div class="col-sm">
-        <div id="approve-container" >
-          <Approve {requests} />
-          <button on:click={() => console.log(nick_table)}>Dump Table</button>
-        </div>
+			<div id="chat-container" class="grid-item">
+				<Chat {nickname} emit={send} />
+			</div>
 
-        <div id="sc-play-container">
-          <div  class="col-sm">
-            <SCPlay {current_soundcloud_url} {play_next}/>
-          </div>
-        </div>
-      </div>
-
+			<div id="game-container" class="grid-item">
+				<GameModal {nickname} emit={send} />
+				<ScoreBoard class="text-center"/>
+			</div>
 		</div>
 	{:else if waiting}
 		<!--Show them waiting for approval-->

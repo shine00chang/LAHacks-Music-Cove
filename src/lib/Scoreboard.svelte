@@ -11,7 +11,7 @@
   });
 </script>
 
-<div>
+<div class="rounded border" style="background: #eee">
   <p class="h6"> Leaderboard: </p> 
   {#each board as entry, i}
     <div><strong>{i+1}</strong> - <em>{entry.author}</em> | {entry.score}</div>

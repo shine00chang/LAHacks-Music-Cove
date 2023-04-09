@@ -1,32 +1,21 @@
 <div>
+  {#if !game}
+    <button on:click={() => show_modal=true}>Launch Game</button>
+  {:else} 
+    <!-- Game element here -->
+    <FlappyBird nickname={nickname} emit={emit} />
+  {/if}
   {#if show_modal}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="modal-overlay" data-close on:click={overlay_click} transition:fade={{duration: 150}}>
       <div class="modal-container">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            fill="white"
-            class="bi bi-x-lg"
-            viewBox="0 0 16 16"
-            on:click={() => (show_modal = false)}
-          >
-        </nav>
         <div class="grid-container">
           <div class="game left"> 
-            {#if game}
-              <FlappyBird nickname={nickname} emit={emit} />
-            {:else}
-              <img class="flappy-bird" src="https://psmag.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_660/MTI3NTgyMjIwOTYwNjM1MzU4/flappy-bird.webp" alt="flup brb">
-              <button type="button" class="btn btn-success overlay-btn" on:click={start_flappy}>Play</button>
-              <h1 class="title text">Flappy Bird</h1>
-            {/if}
+            <img class="flappy-bird" src="https://psmag.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_660/MTI3NTgyMjIwOTYwNjM1MzU4/flappy-bird.webp" alt="flup brb">
+            <button type="button" class="btn btn-success overlay-btn" on:click={start_flappy}>Play</button>
+            <h1 class="title text">Flappy Bird</h1>
           </div>
-          <div class="game">
-            <ScoreBoard />
-          </div>
+          <div class="game"><p class="text">Game 2 Option Here</p></div>
         </div>
       </div>
     </div>
@@ -36,7 +25,6 @@
 <script>
 import { fade } from 'svelte/transition';
 import FlappyBird from '$lib/Games/FlappyBird.svelte';
-import ScoreBoard from '$lib/Scoreboard.svelte';
 
 function overlay_click(e) {
     if ('close' in e.target.dataset)
@@ -44,10 +32,11 @@ function overlay_click(e) {
 }
 
 const start_flappy = () => {
+  show_modal = false;
   game = 'flappy';
 }
 let game = undefined;
-export let show_modal = false;
+let show_modal = false;
 export let emit = false;
 export let nickname = '';
 </script>
