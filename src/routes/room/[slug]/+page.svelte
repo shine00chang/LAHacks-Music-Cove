@@ -97,6 +97,8 @@
       console.log(share_room_url)
       console.log("room created");
       nick_table[keys.sign.pub] = nickname;
+      console.log('abc')
+      waiting = false;
       on_sock_start();
       clearTimeout(timeout);
     });
@@ -143,7 +145,7 @@
       keys.hashed_shared = shared_secret_hash;
       share_room_url = `${$page.url.origin}/room/${ROOM_NAME}?shared_hash=${keys.hashed_shared}`;
       console.log("shared key: ", keys.shared);
-
+      waiting = false;
       on_sock_start();
       clearTimeout(timeout);
     });
@@ -305,7 +307,7 @@
 {#if keys.shared !== undefined}
     <!--If user has the secret key, show them all the components -->
     <Navbar room_name={ROOM_NAME} bind:share_room_url={share_room_url} bind:sidebar_open={open} />
-    <Sidebar bind:show={open} />
+    <Sidebar bind:show={open} {nickname} emit={send} current_queue={song_queue} />
 {/if}
 
 <div class="main">

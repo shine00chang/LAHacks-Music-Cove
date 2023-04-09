@@ -12,7 +12,7 @@
     </svg>
 
     
-    /*<div class="me-auto order-0" style="margin-left: 5%">
+    <div class="me-auto order-0" style="margin-left: 5%">
         <!--<a class = "navbar-brand mr-auto" href="#">Here</a> -->
         <input type="text" id="join_url" value={share_room_url ? share_room_url : "pending"}>
         <button onclick="copy_join()" class="btn btn-danger">Copy text</button>
@@ -33,7 +33,7 @@
                 alert("Copied the text: " + copyText.value);
             }
         </script>
-    </div>*/
+    </div>
 
     <div class="ml-auto order-0">
         <a class="navbar-brand ml-auto" href="#">Cove #{room_name}</a>
