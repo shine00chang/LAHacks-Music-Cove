@@ -1,6 +1,6 @@
 <script>
     export let room_name;
-    export let share_key;
+    export let share_room_url;
     export let sidebar_open = false;
 </script>
 
@@ -14,13 +14,13 @@
     
     /*<div class="me-auto order-0" style="margin-left: 5%">
         <!--<a class = "navbar-brand mr-auto" href="#">Here</a> -->
-        <input type="text" id="myInput" value={share_key}>
-        <button onclick="myFunction()" class="btn btn-danger">Copy text</button>
+        <input type="text" id="join_url" value={share_room_url}>
+        <button onclick="copy_join()" class="btn btn-danger">Copy text</button>
         <script>
     
-            function myFunction() {
+            function copy_join() {
                 /* Get the text field */
-                var copyText = document.getElementById("myInput");
+                var copyText = document.getElementById("join_url");
     
                 /* Select the text field */
                 copyText.select();
