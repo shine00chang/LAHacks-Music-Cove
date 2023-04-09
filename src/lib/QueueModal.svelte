@@ -2,7 +2,17 @@
 <div>
   <div class="modal-overlay" data-close on:click={overlay_click} transition:fade={{duration: 150}}>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <h2 style="color:#fff; font-size: 30px">Queue</h2>
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-x-lg" viewBox="0 0 16 16" on:click={() => show = false}>
+        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+      </svg>
+
+    <div class="ml-auto order-0">
+        <a class="navbar-brand mr-auto" href="#">Queue</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
     </nav>
 
     <div class="queue-container">
@@ -25,8 +35,7 @@
           </div>
       </div>
 
-      <div style="float:right">
-          <div class="queue-element">
+      <div class= "right-container"style="float:right; margin-right: 20px; justify-content: right">
                 <span style="float:left; margin-left: 20px; margin-top: 10px"><strong>Add New Song: </strong></span>
                 <span style="float:center; margin-left: 10px; margin-right: 10px; margin-top: 10px" on:submit={() => addSong("huh")}></span>
                 <span style="float:right; margin-right: 20px; margin-top: 10px">
@@ -37,7 +46,6 @@
                     </svg>
                   </button>
                 </span>
-          </div>
       </div>
   </div>
   </div>
@@ -79,28 +87,40 @@ export let show = false;
   flex-direction: column;
   justify-content: center;
   overflow-x: hidden;
+  width: 100%;
+  height: 100%
 }
 .modal-container {
   position: relative;
   background-color: #ffffff;
-  width: 90vw;
+  width: 100%;
+  max-height: 60vh;
   margin: 1rem auto 0.2rem;
   box-shadow: 0 3px 10px #555;
   overflow-x: hidden;
+  margin-top: 5%;
 }
 
 .queue-container {
-  width: 90%;
-  height: 60vh;
+  width: 100%;
+  height: 90%;
   padding: 5px;
   background-color: #2d2d2d;
   color: #ffffff;
-  overflow-x: hidden
+  overflow-x: hidden;
+  align-content: center;
 }
 main {
   padding: 0.5rem;
 }
 
+.right-container {
+  border-radius: 25px;
+  background: #484947;
+  width: 23%;
+  height: 85vh;
+  margin-top: 10px;
+}
 .queue-element {
   border-radius: 25px;
   background: #484947;
