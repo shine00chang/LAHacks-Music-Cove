@@ -23,11 +23,11 @@
   console.log(ROOM_NAME, create);
 
   let share_room_url;
-  $: {
+  /*$: {
     if (share_room_url) {
       alert(`Share the url "${share_room_url}"`);
     }
-  }
+  }*/
 
   function utoh(u) {
     let hex = "";
@@ -254,7 +254,7 @@
 </script>
 
 <svelte:head>
-  <script src="./../../sc_api.js"></script>
+  <script src="./../../../static/sc_api.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </svelte:head>
 
@@ -264,7 +264,7 @@
 <!--This code is kinda repeated in around 20 lines from now, sorry! but itt was for good reason -taisei -->
 {#if keys.shared !== undefined}
     <!--If user has the secret key, show them all the components -->
-    <Navbar room_name={ROOM_NAME} bind:sidebar_open={open} />
+    <Navbar room_name={ROOM_NAME} share_key={share_room_url} bind:sidebar_open={open} />
     <Sidebar bind:show={open} />
 {/if}
 
