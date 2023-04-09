@@ -51,3 +51,8 @@ Message capsule/payload schema is different:
 Now instead of an encrypted field and a signature, there is a `data` field that is an encrypted JSON message that is then signed.
 
 The role of the server has also been expanded a little, keeping track of connected sockets and only letting sockets that are accepted listen in a room's messages. This prevents malicious clients from storing websocket messages - which itself is fairly harmless since the data is encrypted - but things like timestamps, nicknames, and public keys could have previously been potentially recorded.
+
+A TOR hidden service version of the site is also operated, to further enhance privacy for both server and clients, and make it harder to block websites.
+
+TOR site: http://5bswftgbb4o4ydo3y5j7zw3qljec4fa43gadnvdjbfa32ybdc7cgnkid.onion/
+TOR site github: https://github.com/downloadablecontent/LAHacks-Music-Cove-TOR

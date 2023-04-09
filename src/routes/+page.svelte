@@ -32,6 +32,7 @@
 <svelte:head>
     <link href="/front.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Lilita+One" rel="stylesheet"/>
+    <meta http-equiv="Onion-Location" content="http://eecflincupi352qlelnar7ahghmhrmiqil4p5cwjwimidsrwqxtlhbyd.onion">
 </svelte:head>
 
 <div id="bg" class="scroll">
