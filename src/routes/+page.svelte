@@ -59,7 +59,7 @@
 <style>
     input {
         border-radius: 25px;
-        border: 2px solid #609;
+        border: 2px solid rgb(0, 125, 153);
         padding: 20px; 
         width: 200px;
         height: 15px; 
@@ -88,8 +88,16 @@
         font-size: 75px;
     }
     button {
-        font-family: "Lilita One";
-    }
+        background-color: #4CAF50; /* Green */
+        border-radius: 25px;
+        border: 2px;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+}
     div#bg {
         background-image: url("https://wallpaperaccess.com/full/1261201.jpg");
         background-repeat: no-repeat;
