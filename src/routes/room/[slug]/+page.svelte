@@ -4,7 +4,7 @@
 	import Sidebar from "$lib/Sidebar.svelte";
 	import { Alert } from "flowbite-svelte";
 	let open = false;
-	let num = 0;
+	let alert_type = 0;
 	import { onMount } from "svelte";
 	import { page } from "$app/stores";
 	import Start from "$lib/Start.svelte";
@@ -23,10 +23,16 @@
 	const create = $page.url.searchParams.get("create") === "true";
 	console.log(ROOM_NAME, create);
 
+  let share_alert_ran = false;
+
 	let share_room_url;
 	$: {
-		if (share_room_url && create) {
-			let num = 1;
+		if (share_room_url && create && !share_alert_ran) {
+			alert_type = "share-alert";
+      share_alert_ran = true;
+      setTimeout(() => {
+        alert_type = 0;
+      }, 2000);
 		}
 	}
 
@@ -84,7 +90,7 @@
 		// Callbacks
 		const timeout = setTimeout(() => {
 			console.log("timed out");
-			let num = 2;
+			alert_type = "time-out";
 			socket.off("room-create-rsp");
 		}, 10000);
 
@@ -129,7 +135,7 @@
 		socket.emit("room-join-req", msg);
 		const timeout = setTimeout(() => {
 			console.log("timed out");
-			let num = 2;
+			alert_type = "time-out";
 			socket.off("room-join-rsp");
 		}, 10000);
 		socket.once("room-join-rsp", async (msg) => {
@@ -310,11 +316,14 @@
 
 	let next_song;
 	$: {
-		song_queue.shift();
-		current_soundcloud_url = song_queue[0]?.url;
-		if (!current_soundcloud_url) {
-			current_soundcloud_url = "";
-		}
+    if (next_song) {
+      song_queue.shift();
+      current_soundcloud_url = song_queue[0]?.url;
+      if (!current_soundcloud_url) {
+        current_soundcloud_url = "";
+      }
+      console.log(current_soundcloud_url)
+    }
 	}
 </script>
 
@@ -345,7 +354,7 @@
 		current_queue={song_queue}
 	/>
 {/if}
-{#if num == 1}
+{#if alert_type == "share-alert"}
 	<Alert>
 		<span slot="icon"
 			><svg
@@ -363,7 +372,7 @@
 		</span>
 		<span class="font-medium">Info alert!</span> Share the url {share_room_url}
 	</Alert>
-{:else if num == 2}
+{:else if alert_type == "time-out"}
 	<Alert color="red">
 		<span slot="icon"
 			><svg
