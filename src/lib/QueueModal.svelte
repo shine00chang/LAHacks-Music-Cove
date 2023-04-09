@@ -44,12 +44,14 @@
       error = "Invalid soundcloud url! It must start with https://soundcloud.com";
       return;
     }
-    let song_info = await get_song_info(soundcloud_url);
+    let soundcloud_url_clone = soundcloud_url;
+    soundcloud_url = "Adding to queue...";
+    let song_info = await get_song_info(soundcloud_url_clone);
     //send song
     const hdr = {};
     const data = {
       event: "song-add",
-      url: soundcloud_url,
+      url: soundcloud_url_clone,
       title: song_info.title,
       artist: song_info.artist,
       description: song_info.description,
@@ -58,6 +60,9 @@
     //console.log("SC Queue Add: ", hdr, data);
     emit(hdr, data);
     soundcloud_url = "Queued!";
+    setTimeout(() => {
+      soundcloud_url = "";
+    }, 2000);
   }
 
   export let show = false;

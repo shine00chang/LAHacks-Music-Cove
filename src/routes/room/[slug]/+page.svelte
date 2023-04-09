@@ -112,7 +112,6 @@
 			console.log(share_room_url);
 			console.log("room created");
 			nick_table[keys.sign.pub] = nickname;
-			console.log("abc");
 			waiting = false;
 			on_sock_start();
 			clearTimeout(timeout);
@@ -290,6 +289,9 @@
 				title: data.title,
 			});
 			song_queue = [...song_queue];
+      if (song_queue.length === 1) {
+        play_next_no_remove();
+      }
 		});
 
 		document.addEventListener("song-remove", (event) => {
@@ -312,19 +314,29 @@
 	});
 
 	let current_soundcloud_url =
-		"https://soundcloud.com/7opi5oei5fbj/summer-slack";
+		"";
 
-	let next_song;
-	$: {
-    if (next_song) {
+  function play_next_no_remove() {
+    current_soundcloud_url = song_queue[0]?.url;
+    console.log(song_queue.length, song_queue)
+    if (song_queue.length > 1) {
       song_queue.shift();
-      current_soundcloud_url = song_queue[0]?.url;
-      if (!current_soundcloud_url) {
-        current_soundcloud_url = "";
-      }
-      console.log(current_soundcloud_url)
     }
-	}
+    if (!current_soundcloud_url) {
+      current_soundcloud_url = "";
+    }
+    console.log("NEXT SONG NO REMOVE", current_soundcloud_url)
+  }
+
+	function play_next() {
+    song_queue.shift();
+    current_soundcloud_url = song_queue[0]?.url;
+    console.log(song_queue.length, song_queue)
+    if (!current_soundcloud_url) {
+      current_soundcloud_url = "";
+    }
+    console.log("NEXT SONG", current_soundcloud_url)
+  }
 </script>
 
 <svelte:head>
@@ -412,7 +424,7 @@
 
 		<div id="sc-play-container">
 			<div  class="col-sm">
-				<SCPlay {current_soundcloud_url} bind:value={next_song}/>
+				<SCPlay {current_soundcloud_url} {play_next}/>
 			  </div>
 		</div>
       </div>
