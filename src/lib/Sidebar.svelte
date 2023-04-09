@@ -17,6 +17,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<GameModal bind:show_modal={game_modal_show} nickname={nickname} emit={emit}/>
 {#if show}
   <nav class="navbar-dark bg-dark" transition:fly={{x: 250, opacity: 1}}>
     <ul class="links-list">
@@ -40,7 +41,6 @@
   </nav>
 {/if}
 
-<GameModal bind:show={game_modal_show} />
 <QueueModal bind:show={queue_modal_show} bind:current_queue {emit} {nickname} />
 		
 <style>
