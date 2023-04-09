@@ -6,8 +6,14 @@
         NavUl,
         NavHamburger,
     } from "flowbite-svelte";
+    import {
+        Footer,
+        FooterCopyright,
+        FooterLinkGroup,
+        FooterLink,
+    } from "flowbite-svelte";
     import { DarkMode } from "flowbite-svelte";
-    
+
     function create_room() {
         window.location =
             "/room/" +
@@ -16,8 +22,7 @@
     }
 </script>
 
-
-<hr>
+<hr />
 <Navbar let:hidden let:toggle rounded color="form" class="text-2xl">
     <NavBrand href="/">
         <img
@@ -124,6 +129,15 @@
         private and secure.
     </p>
 </div>
+<Footer>
+    <FooterCopyright href="/" by="MusicCove™" year={2023} />
+    <FooterLinkGroup ulClass="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+      <FooterLink href="/">About</FooterLink>
+      <FooterLink href="/">Privacy Policy</FooterLink>
+      <FooterLink href="/">Licensing</FooterLink>
+      <FooterLink href="/">Contact</FooterLink>
+    </FooterLinkGroup>
+  </Footer>
 
 <style>
     input {
