@@ -83,6 +83,19 @@
     </NavUl>
 </Navbar>
 <h1>FAQ</h1>
+<h2>How old is Shine Chang?</h2>
+<p>Shine Chang is an itty bitty boy from the lands of America who loves to code and play badminton. He is about ten years old and loves everyone.</p>
+<h2>How old is Taisei?</h2>
+<p>Taisei is a full-stack developer who works at Google and is very smart.</p>
+<h2></h2>
+<p></p>
+<h2></h2>
+<p></p>
+<h2></h2>
+<p></p>
+<h2></h2>
+<p></p>
+
 <Footer>
     <FooterCopyright href="/" by="MusicCove™" year={2023} />
     <FooterLinkGroup
@@ -94,3 +107,24 @@
         <FooterLink href="/">Contact</FooterLink>
     </FooterLinkGroup>
 </Footer>
+<style>
+    h1 {
+        font-family: "Lilita One";
+        color: azure;
+        font-size: 175px;
+        height: 250px;
+        text-align: center;
+    }
+    h2 {
+        font-family: "Lilita One";
+        color: azure;
+        text-align: center;
+        font-size: 60px;
+    }
+    p {
+        font-family: "Alegreya", serif;
+        color: azure;
+        text-align: center;
+        font-size: 20px;
+    }
+</style>
