@@ -1,8 +1,6 @@
 import express from "express";
 import http from "http";
 import { Server } from "socket.io";
-import dotenv from "dotenv";
-dotenv.config();
 
 const PORT = 8080;
 
@@ -35,12 +33,13 @@ io.on("connection", (socket) => {
   start_listener(socket);
   socket.on("disconnect", () => {
     //remove socket from room once it disconnects, delete room if no one connected
-    rooms[socket.data.room].members = rooms[socket.data.room].members.filter(
-      (s) => s.id !== socket.id
-    );
-    if (rooms[socket.data.room].members.length === 0) {
-      delete rooms[socket.data.room];
-    }
+    const room = rooms[socket.data.rid];
+	if (!room) return;
+	if (room.members.includes(socket)) 
+		room.members = room.members.filter(member => member.id != socket.id);
+	
+    if (room.members.length === 0) 
+      delete rooms[socket.data.rid];
   });
 });
 
@@ -56,6 +55,7 @@ const on_room_create_req = (socket, msg) => {
   const room = new Room(rid);
   room.members.push(socket);
   rooms[rid] = room;
+  socket.data.rid = rid;
 
   socket.emit("room-create-rsp", { hdr: { approved: true } });
   console.log(`Created room '${rid}'`);
@@ -69,13 +69,14 @@ const on_room_join_req = (socket, msg) => {
 	const boxK 	= msg.hdr.boxK;
 	const room 	= rooms[rid];
 	if (!room) return console.error("none such room");
+	if (room.members.includes(socket)) return console.error("already in room");
 
 	room.members.forEach( member => {
 		console.log("forwarded: ", msg);
 		member.emit('room-join-req', msg);
-		// Set timeout 
 	});
 	room.members.push(socket);
+	socket.data.rid = rid; 
 }
 
 // Fetches target socket from request map, forwards. 
@@ -97,6 +98,7 @@ const start_listener = socket => {
 		console.log("msg rcv: ", msg);
 		const room = rooms[msg.hdr.rid];
 		if (!room) return console.error("none such room");
+		console.log(room.members.map(m => m.id))
 		room.members.forEach(member => member.emit('msg', msg));
 	});
 }

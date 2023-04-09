@@ -42,7 +42,7 @@
         <button on:click={create_room} style="color: azure">Create</button>
     </form>
 </div>
-<h2 id="q1">What is MusicCove?</h2>
+<h3 id="q1">What is MusicCove?</h3>
 <p>
     MusicCove is a communication website designed for music lovers to connect
     and share their passion for music. Users can create profiles, join groups,
@@ -65,7 +65,7 @@
         height: 15px; 
     }
     p {
-        font-family: "Verdana";
+        font-family: 'Alegreya', serif;
         color: azure;
         background: rgb(0, 0, 0);
         background: linear-gradient(
@@ -96,6 +96,7 @@
         background-attachment: fixed;
         background-size: cover;
     }
+    
     h1 {
         font-family: "Lilita One";
         color: azure;
@@ -103,6 +104,7 @@
         height: 80px;
         align-self: center;
     }
+    
     div.scroll {
         background-color: #fed9ff;
         width: 500px;

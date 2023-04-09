@@ -13,15 +13,23 @@
 
 {#if show}
   <nav class="navbar-dark bg-dark" transition:fly={{x: 250, opacity: 1}}>
-    <button on:click={() => {member_modal_show = true; show = false;}}>
-      <p style="color: #fff;">View Members</p>
-    </button>
-    <button on:click={() => {game_modal_show = true; show = false;}}>
-      <p style="color: #fff;">Games Menu</p>
-    </button>
-    <button on:click={() => {queue_modal_show = true; show = false;}}>
-      <p style="color: #fff;">Access Queue</p>
-    </button>
+    <ul class="links-list">
+      <li>
+        <button on:click={() => {member_modal_show = true; show = false;}}>
+          <p style="color: #fff;">View Members</p>
+        </button>
+      </li>
+      <li>
+        <button on:click={() => {game_modal_show = true; show = false;}}>
+          <p style="color: #fff; bottom-margin: 20px">Games Menu</p>
+        </button>
+      </li>
+      <li>
+        <button on:click={() => {queue_modal_show = true; show = false;}}>
+          <p style="color: #fff;">Access Queue</p>
+        </button>
+      </li>
+    </ul>
   </nav>
 {/if}
 
@@ -38,7 +46,15 @@ nav {
   border-left: 1px solid #aaa;
   overflow-y: auto;
 	width: 10rem;
-  margin-bottom: 0.5%;
+}
+
+.links-list {
+  margin-bottom: 20px;
+}
+
+.bg-dark {
+  margin-bottom: 10px;
+  display: inline
 }
 
 button {

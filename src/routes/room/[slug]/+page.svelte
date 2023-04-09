@@ -4,9 +4,11 @@
   import Sidebar from "$lib/Sidebar.svelte";
   let open = false;
 
+  import { onMount } from 'svelte';
   import { page } from "$app/stores";
   import Start from "$lib/Start.svelte";
   import Approve from "$lib/Approve.svelte";
+  import Chat from "$lib/Chat.svelte";
   import io from "socket.io-client";
   import nacl from "tweetnacl";
 
@@ -35,8 +37,12 @@
 	function otou (o) {
 		return new TextEncoder().encode( JSON.stringify(o) );
 	}
+	
+  	function utoo (u) {
+		return JSON.parse( new TextDecoder('utf-8').decode(u) );
+	}
 
-	function gen_nonce() {
+  	function gen_nonce() {
 		return nacl.randomBytes(24);
 	}
 
@@ -60,9 +66,7 @@
 
   const send_create_req = () => {
 	console.log("'Create Room' Request sent");
-	//generate 32 bytes shared key for secret key encryption
-	keys.shared = utoh(nacl.randomBytes(32))	
-	  
+
 	// Send request
 	const msg = { hdr: {rid: ROOM_NAME} };
 	socket.emit("room-create-req", msg);	
@@ -78,6 +82,8 @@
 		if (!msg.hdr.approved) 
 			return console.error('room creation rejected');
 
+		//generate 32 bytes shared key for secret key encryption
+		keys.shared = utoh(nacl.randomBytes(32))	
 		console.log("room created");
 		nick_table[keys.sign.pub] = nickname;
 		on_sock_start();	
@@ -113,7 +119,7 @@
 			const nonce 	= msg.hdr.nonce;
 			const box 		= msg.data;
 			const plain 	= nacl.box.open(htou(box), htou(nonce), htou(peer_boxK), htou(keys.box.pri));
-			const data = JSON.parse( new TextDecoder().decode( plain ) )
+			const data = utoo( plain );
 			nick_table = data.nick_table;
 			keys.shared = data.shared_secret;
 			console.log("shared key: ", keys.shared);	
@@ -124,24 +130,47 @@
   };
 	
   const send = (hdr, data) => {
-		console.log("sending", {hdr: hdr, data: data});
-		if (socket === undefined) return console.error("Not connected");
-		// TODO: Secret Box, set hdr 
-	}
+	if (keys.shared === undefined)
+		return console.error("Shared key not set, cannot ecrypt.");
 
-	// Sets '.on()' callback for socket
-  const on = (event, callback) => {
-		if (socket === undefined) return console.error("Not connected");
-		socket.on(event, callback);
-	}
+	const plain 	= otou( data );
+	const signed 	= nacl.sign(plain, htou(keys.sign.pri));
+	const nonce 	= utoh( nacl.randomBytes(24) );
+	const secbox 	= nacl.secretbox(signed, htou(nonce), htou(keys.shared));
+	hdr.signK = keys.sign.pub;
+	hdr.nonce = nonce;
+	hdr.rid = ROOM_NAME;
+	const msg = {
+		hdr: hdr,
+		data: utoh(secbox)
+	};
+	console.log("emitting message: ", msg);
+	socket.emit("msg", msg);	
+  }
 
-	// Sets '.once()' callback for socket
-  const once = (event, callback) => {
-		if (socket === undefined) return console.error("Not connected");
-		socket.once(event, callback);
-	}
+  const onMsg = msg => {
+ 	const signK  = msg.hdr.signK;
+	const nonce  = msg.hdr.nonce;
+	const author = nick_table[ signK ];
+
+	// NaCl decryption & signature verification
+	const enc 	 = htou( msg.data );
+	const signed = nacl.secretbox.open(enc, htou(nonce), htou(keys.shared));
+	const plain  = nacl.sign.open(signed, htou(signK));
+	const data 	 = utoo( plain );
+	if (data === null)
+		return console.error("signature validation failed!");
+
+    const event = new CustomEvent (data.event, { detail: {
+	  hdr: msg.hdr,
+	  data: data,
+    }});
+	console.log("received message, emitting event: ", event);
+	document.dispatchEvent(event);
+  }
 
   const on_sock_start = () => {
+	socket.on('msg', onMsg);
 	socket.on('room-join-req', msg => {
 		console.log("room-join-req received", msg);
 
@@ -193,6 +222,7 @@
   <Navbar room_name={ROOM_NAME} bind:sidebar_open={open}/>
   <Sidebar bind:show={open} />
 
+  <Chat nickname={nickname} emit={send} />
 	<Approve requests={requests}/>
 	<button on:click={() => console.log(nick_table)}>Dump Table</button> 
 {:else if generate }

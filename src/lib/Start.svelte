@@ -12,7 +12,6 @@
   let can_continue = false;
   function close() {
     document.getElementById("start-modal").style.display = "none";
-    console.log(nickname);
 	onsubmit();
   }
 </script>
