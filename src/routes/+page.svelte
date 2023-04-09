@@ -30,6 +30,7 @@
     </NavUl>
   </Navbar>
 <svelte:head>
+    <title>MusicCove</title>
     <link href="/front.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Lilita+One" rel="stylesheet"/>
     <meta http-equiv="Onion-Location" content="http://eecflincupi352qlelnar7ahghmhrmiqil4p5cwjwimidsrwqxtlhbyd.onion">
@@ -43,19 +44,16 @@
         <button on:click={create_room} style="color: azure">Create</button>
     </form>
 </div>
-<h2 id="q1">What is MusicCove?</h2>
-<p>
-    MusicCove is a communication website designed for music lovers to connect
-    and share their passion for music. Users can create profiles, join groups,
-    and participate in discussions on various topics related to music. The site
-    also provides a platform for musicians to showcase their talent and connect
-    with fans. With MusicCove, users can discover new music, share their
-    favorite songs and albums, and connect with like-minded individuals from
-    around the world. Whether you're a musician, a music enthusiast, or simply
-    someone who loves to connect with others through music, MusicCove is the
-    perfect platform to share your passion and connect with others who share
-    your interests.
-</p>
+<div id="what-is">
+    <h2 id="q1">What is MusicCove?</h2>
+    <p>
+        MusicCove is ultra private, ultra secure and ultra easy to use.
+        Using our homegrown end to end encryption (e2e) protocol, people can hang out in virtual rooms and just hang out - chatting and playing games or music - all while knowing that their privacy is protected.
+        Unlike other sites, MusicCove's e2e protocol makes it so no one, except those in the room with you, can decrypt your messages. Not even the server!
+        And since's this is all open source, and has a TOR instance, users can easily further secure their privacy by using the TOR site or running their own backend server.
+        Even better, the interface and protocol is made so, you, the user, don't need to have any technical knowledge, while still remaining completely private and secure.
+    </p>
+</div>
 
 <style>
     input {
@@ -68,23 +66,12 @@
     p {
         font-family: 'Alegreya', serif;
         color: azure;
-        background: rgb(0, 0, 0);
-        background: linear-gradient(
-            0deg,
-            rgba(1, 79, 125, 1) 100% rgba(0, 0, 0, 1) 0%
-        );
         text-align: center;
         font-size: 20px;
     }
     h2 {
         font-family: "Lilita One";
         color: azure;
-        background: rgb(0, 0, 0);
-        background: linear-gradient(
-            0deg,
-            rgba(0, 0, 0, 1) 0%,
-            rgba(1, 80, 123, 1) 100%
-        );
         text-align: center;
         font-size: 75px;
     }
@@ -98,7 +85,7 @@
         text-decoration: none;
         display: inline-block;
         font-size: 16px;
-}
+    }
     div#bg {
         background-image: url("https://wallpaperaccess.com/full/1261201.jpg");
         background-repeat: no-repeat;
@@ -122,5 +109,15 @@
         overflow-y: auto;
         text-align: center;
         padding: 20px;
+    }
+    #what-is {
+        padding: 0 5vw 5vh 5vw;
+        padding-bottom: 5vh;
+        background: rgb(0, 0, 0);
+        background: linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(1, 80, 123, 1) 100%
+        );
     }
 </style>
