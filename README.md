@@ -14,7 +14,15 @@ See the Updated Protocol section for differences.
 
 ## Self-hosting Backend
 
+`git clone https://github.com/PaddingProductions/LAHacks-Music-Cove.git`
+
+`npm run exp-start`
+
 ## Self-hosting Frontend
+
+`git clone https://github.com/PaddingProductions/LAHacks-Music-Cove.git`
+
+`npm run dev` (or `npm run build` and host the built files)
 
 ## Updated Protocol
 
