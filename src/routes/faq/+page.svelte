@@ -83,22 +83,19 @@
         </DarkMode>
     </NavUl>
 </Navbar>
-<h1>FAQ</h1>
-<h2>How old is Shine Chang?</h2>
-<p>
+<div style="font-family: Lilita One" class="text-center text-blue-600 dark:text-white"> 
+<div style="font-size: 10rem">FAQ</div>
+<div class="text-5xl">How old is Shine Chang?</div>
+<div class="text-3xl">
     Shine Chang is an itty bitty boy from the lands of America who loves to code
     and play badminton. He is about ten years old and loves everyone.
-</p>
-<h2>How old is Taisei?</h2>
-<p>Taisei is a full-stack developer who works at Google and is very smart.</p>
-<h2 />
-<p />
-<h2 />
-<p />
-<h2 />
-<p />
-<h2 />
-<p />
+</div>
+<br>
+<div class="text-5xl">How old is Taisei?</div>
+<div class="text-3xl">
+  Taisei is a seasoned full-stack developer who works at Tinovation and is very smart.
+</div>
+</div> 
 
 <Footer>
     <FooterCopyright href="/" by="MusicCove™" year={2023} />

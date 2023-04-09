@@ -31,7 +31,9 @@
         </svg>
         <span class="sr-only">Light bulb</span>
     </span>
-    <span>Welcome to The Cove! Please review our <a href="https://flowbite.com" class="inline font-medium text-blue-600 underline dark:text-blue-500 underline-offset-2 decoration-600 dark:decoration-500 decoration-solid hover:no-underline">Privacy Policy</a></span>
+    <span class="text-center text-1xl text-slate-400 dark:text-white">
+      Welcome to The Cove! Please review our <a href="https://flowbite.com" class="inline font-medium text-blue-600 underline dark:text-blue-500 underline-offset-2 decoration-600 dark:decoration-500 decoration-solid hover:no-underline">Privacy Policy</a>
+    </span>
   </p>
 </Banner>
 <hr />
@@ -116,7 +118,7 @@
 </svelte:head>
 
 <div id="bg" class="scroll">
-    <h1>MusicCove</h1>
+    <div style="font-size: 10rem; font-family: Lilita One" class="text-center text-white dark:text-slate-400">MusicCove</div>
 
     <form>
         <input id="room-name" type="text" placeholder="Room name..." />

@@ -90,19 +90,21 @@
         </DarkMode>
     </NavUl>
 </Navbar>
-<h1>Contacts</h1>
+<div style="font-family: Lilita One" class="text-center text-blue-600 dark:text-white"> 
+<div class="text-8xl">Contacts</div>
 <img src="https://cdn.discordapp.com/avatars/471373928485355530/b1dcb7d92956ce5d7c1d75e732dfce57.webp?size=160" alt="sriram"/>
-<h2>Sriram Loganathan</h2>
-<p>Cool Dude</p>
+<div class="text-7xl">Sriram Loganathan</div>
+<div class="text-4xl">Cupertino High School student, class of 2024. A developer by hobby and an aspiring artificial intelligence engineer.</div>
 <img src="https://cdn.discordapp.com/avatars/239770148305764352/d1888a729733cafbc216c2c293a877b6.webp?size=160" alt="taisei"/>
-<h2>Taisei something</h2>
-<p>Smart man</p>
+<div class="text-7xl">Taisei De La Cruz</div>
+<div class="text-4xl">Cupertino High School student, class of 2024. An officer of school club Tinovation and a passionate hacker. </div>
 <img src="https://cdn.discordapp.com/avatars/599433909561982996/463a75b34a2c72a08d3b03e6cf1dd609.webp?size=160" alt="shine"/>
-<h2>Shine Chang</h2>
-<p>Shinay</p>
+<div class="text-7xl">Shine Chang</div>
+<div class="text-4xl">Cupertino High School student, class of 2025. A developing programmer very much interested in digital networking. </div>
 <img src="https://cdn.discordapp.com/avatars/532757647108210692/07b29b61f87592014b558f64baeb9b7b.webp?size=160" alt="bhargav"/>
-<h2>Bhargav</h2>
-<p>bald af</p>
+<div class="text-7xl">Bhargav Eranki</div>
+<div class="text-4xl">Cupertino High School student, class of 2025. A Seasoned hobbiest, well-versed artificial intelligence and machine learning.</div>
+</div>
 <Footer>
     <FooterCopyright href="/" by="MusicCove™" year={2023} />
     <FooterLinkGroup
