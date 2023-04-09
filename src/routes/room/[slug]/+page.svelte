@@ -418,25 +418,40 @@
 	{#if keys.shared !== undefined}
 		<!--If user has the secret key, show them all the components -->
 
-		<div id="grid-container" class="row">
-      <div class="col-sm">
+	<div class="row">
+		<div class="col" id="chat_container" style="margin-left: 50px">
+			<Chat {nickname} emit={send} />
+		</div>
+
+		<div class="col" id="grid-container">
+			<div id="approve-container" class="row grid-item">
+				<Approve {requests} />
+			</div>
+
+			<div id="sc-play-container" class="row grid-item">
+				<SCPlay {current_soundcloud_url} {play_next}/>
+			</div>
+		</div>
+	</div>
+
+	
+	<!--
+	<div id="grid-container" class="row">
+      <div id="chat-container" class="col">
         <Chat {nickname} emit={send} />
       </div>
    
-      <div class="col-sm">
+      <div class="col">
         <div id="approve-container" >
           <Approve {requests} />
           <button on:click={() => console.log(nick_table)}>Dump Table</button>
         </div>
 
         <div id="sc-play-container">
-          <div  class="col-sm">
             <SCPlay {current_soundcloud_url} {play_next}/>
-          </div>
         </div>
       </div>
-
-		</div>
+	</div> -->
 	{:else if waiting}
 		<!--Show them waiting for approval-->
 		<h1 style="text-align: center">Room: {ROOM_NAME}</h1>
@@ -446,6 +461,9 @@
 </div>
 
 <style>
+	body {
+		background-color: #2d2d2d;
+	}
 	.main {
 		padding: 6px;
 		height: 100%;
@@ -453,44 +471,41 @@
 	}
 
 	#grid-container {
-		height: 100vh;
+		height: 90vh;
+		width: 100vh;
 		background-color: #2d2d2d;
 	}
 	#chat-container {
-		height: 90%;
-		width: 90%;
+		height: 100vh;
+		width: 50vh;
 		border-radius: 20px;
 		background-color: #4f4f4f;
 		margin: 5px;
 		margin-top: 5px;
 		margin-bottom: 15px;
+		
 	}
 
 	#approve-container {
-		height: 44%;
+		height: 60%;
 		width: 90%;
 		border-radius: 20px;
 		background-color: #4f4f4f;
 		margin: 5px;
 		margin-top: 5px;
-		margin-bottom: 15px;
+		margin-bottom: 25px;
 	}
 
 	#sc-play-container {
-		height: 44%;
+		height: 30%;
 		width: 90%;
 		border-radius: 20px;
 		background-color: #4f4f4f;
 		margin: 5px;
-		margin-top: 5px;
+		margin-top: 30px;
 		margin-bottom: 15px;
 	}
 
-	#grid-container {
-		display: grid;
-		grid-template-columns: 20% auto 30%;
-		padding: 5px;
-	}
 	@media screen and (max-width: 1000px) {
 		#grid-container {
 			grid-template-columns: auto auto;

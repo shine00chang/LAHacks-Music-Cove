@@ -38,7 +38,7 @@
 <div class="row">
   <div class="msgs">
     {#each messages as message}
-    <div>
+    <div style="color: white">
       <span class="message-container"
         ><b class="message-author" title={message.key}>{message.author}</b>:
         <span class="message-content">{message.text}</span></span
@@ -49,7 +49,7 @@
 
   <form class="input-box">
     <input type="text" bind:value={text_input} size="70" style="border-radius: 15px"/>
-    <button on:click={onSend} style={"background-color: red; color: white; border-radius: 15px; width: 40px; height: 45px; margin-left: 2px"}>⮕ </button>
+    <button on:click={onSend} style={"background-color: red; color: white; border-radius: 15px; width: 40px; height: 45px; margin-left: 20px"}>⮕ </button>
   </form>
 
   </div>
@@ -62,9 +62,10 @@
     .input-box {
       position: absolute;
       bottom: 0;
-      left: 0;
-      margin: 10px;
-      display: flex
+      left: 5;
+      margin: 0px;
+      display: flex;
+      margin-bottom: 20px
     }
 
     .left {
@@ -76,8 +77,13 @@
     }
 
     .msgs {
-      margin-left: 35px;
-      margin-top: 15px
+      margin-left: 15px;
+      margin-top: 15px;
+      
+    }
+
+    .row {
+      background-color: #2d2d2d;
     }
   </style>
 
