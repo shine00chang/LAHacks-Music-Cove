@@ -442,18 +442,17 @@
     padding: 6px;
     height: 100%;
     overflow: hidden;
-        
+    padding-bottom: 0px;
   }
 
   #grid-container {
 	height: 100vh;
-	background-color: #2d2d2d;
   }
   #chat-container {
 	height: 90%;
 	width: 90%;
-	border-radius: 20px;
-	background-color: #4f4f4f;
+	/*border-radius: 20px;*/
+  border-right: 1px solid black;
 	margin: 5px;
 	margin-top: 5px;
 	margin-bottom: 15px;
@@ -463,7 +462,6 @@
 	height: 44%;
 	width: 90%;
 	border-radius: 20px;
-	background-color: #4f4f4f;
 	margin: 5px;
 	margin-top: 5px;
 	margin-bottom: 15px
@@ -472,11 +470,17 @@
   #sc-play-container {
 	height: 44%;
 	width: 90%;
-	border-radius: 20px;
-	background-color: #4f4f4f;
+	/*border-radius: 20px;*/
 	margin: 5px;
-	margin-top: 5px;
+	border-top: 1px solid black;
+  padding-top: 20px;
 	margin-bottom: 15px
+  }
+
+  @media screen and (min-width: 1000px) {
+    body, html {
+      overflow: hidden;
+    }
   }
 
 

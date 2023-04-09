@@ -41,7 +41,12 @@
     .nickname_input {
       text-align: center;
     }
-
+    #start-modal {
+      margin-top: -6px;
+      margin-left: -6px;
+      width: 100vw;
+      height: 100vh;
+    }
       .gradient_background {
         background: linear-gradient(-45deg, #545353, #3f3e3e, #303131, #0f0f0f);
         background-size: 400% 400%;

@@ -12,7 +12,7 @@
     </svg>
 
     
-    <div class="me-auto order-0" style="margin-left: 20%">
+    <div class="me-auto order-0" style="margin-left: 30%">
         <!--<a class = "navbar-brand mr-auto" href="#">Here</a> -->
         <input type="text" id="join_url" value={share_room_url ? share_room_url : "pending"}>
         <button onclick="copy_join()" class="btn btn-danger" style="height: 50px; align-content:last baseline">
@@ -55,6 +55,6 @@
 
 <style>
     #join_url {
-        width: 50vw
+        width: 30vw
     }
 </style>

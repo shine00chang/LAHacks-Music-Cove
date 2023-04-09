@@ -26,6 +26,8 @@
       text: text_input.trim(),
       author: nickname,
     };
+		if (data.text === "") return;
+		text_input = "";
     console.log("Chat sending: ", hdr, data);
     emit(hdr, data);
   };
@@ -45,7 +47,7 @@
   </div>
 
   <form class="input-box">
-    <input type="text" bind:value={text_input} size="70" style="border-radius: 15px"/>
+    <input type="text" bind:value={text_input} placeholder="Chat message..." size="70" style="border-radius: 15px"/>
     <button on:click={onSend} style={"background-color: red; color: white; border-radius: 15px; width: 40px; height: 45px; margin-left: 2px"}>⮕ </button>
   </form>
 
