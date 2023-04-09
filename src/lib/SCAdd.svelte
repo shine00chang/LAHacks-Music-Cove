@@ -1,4 +1,5 @@
 <script>
+  export let e2e;
   let sc_q_url = "";
   $: {
     //remove query params
@@ -21,6 +22,7 @@
     }
     let song_info = await get_song_info(sc_q_url);
     //todo: send e2e message adding to queue
+    //e2e.send()
   }
 </script>
 
