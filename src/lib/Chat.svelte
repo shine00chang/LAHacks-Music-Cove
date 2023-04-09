@@ -26,8 +26,11 @@
       text: text_input.trim(),
       author: nickname,
     };
+		if (data.text === "") return console.log("Prevent empty message");
     console.log("Chat sending: ", hdr, data);
     emit(hdr, data);
+		//reset chat input
+		text_input = "";
   };
 </script>
 
