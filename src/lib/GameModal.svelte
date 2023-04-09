@@ -1,30 +1,44 @@
-{#if show}
 <div>
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <div class="modal-overlay" data-close on:click={overlay_click} transition:fade={{duration: 150}}>
-    <div class="modal-container">
-      <div class="grid-container">
-        <div class="game left"> 
-          <img class="flappy-bird" src="https://psmag.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_660/MTI3NTgyMjIwOTYwNjM1MzU4/flappy-bird.webp" alt="flup brb">
-          <button type="button" class="btn btn-success overlay-btn">Play</button>
-          <h1 class="title text">Flappy Bird</h1>
+  {#if !game}
+    <button on:click={() => show_modal=true}>Launch Game</button>
+  {:else} 
+    <!-- Game element here -->
+    <FlappyBird nickname={nickname} emit={emit} />
+  {/if}
+  {#if show_modal}
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <div class="modal-overlay" data-close on:click={overlay_click} transition:fade={{duration: 150}}>
+      <div class="modal-container">
+        <div class="grid-container">
+          <div class="game left"> 
+            <img class="flappy-bird" src="https://psmag.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_660/MTI3NTgyMjIwOTYwNjM1MzU4/flappy-bird.webp" alt="flup brb">
+            <button type="button" class="btn btn-success overlay-btn" on:click={start_flappy}>Play</button>
+            <h1 class="title text">Flappy Bird</h1>
+          </div>
+          <div class="game"><p class="text">Game 2 Option Here</p></div>
         </div>
-        <div class="game"><p class="text">Game 2 Option Here</p></div>
       </div>
     </div>
-  </div>
+  {/if}
 </div>
-{/if}
 
 <script>
 import { fade } from 'svelte/transition';
+import FlappyBird from '$lib/Games/FlappyBird.svelte';
 
 function overlay_click(e) {
     if ('close' in e.target.dataset)
-        show = false;
+        show_modal = false;
 }
 
-export let show = false;
+const start_flappy = () => {
+  show_modal = false;
+  game = 'flappy';
+}
+let game = undefined;
+let show_modal = false;
+export let emit = false;
+export let nickname = '';
 </script>
 
 <style>

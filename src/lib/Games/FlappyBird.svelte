@@ -7,6 +7,22 @@
   let score = 0;
   let game_over = false;
   let score_text;
+
+  export let emit;
+  export let nickname;
+  const onover = () => {
+    if (game_over) return;
+    game_over = true;
+    // emit score
+    const data = {
+      event: 'score',
+      game: 'flappy',
+      author: nickname,
+      score: score
+    };
+    console.log("flappy bird emitted: ", data);
+    emit({}, data);
+  } 
   /**
    * @param {Canvas} canvas
    */
@@ -62,7 +78,7 @@
       if ((this.current_x > 15 && this.current_x < 30) || (this.current_x+PIPE_WIDTH > 15 && this.current_x+PIPE_WIDTH < 30)) {
         //check to see if bird goes through pipe
         if (bird.y_coord < this.top_height || bird.y_coord > HEIGHT-this.bottom_height || bird.y_coord+bird.BIRD_DIM < this.top_height || bird.y_coord+bird.BIRD_DIM > HEIGHT-this.bottom_height) {
-          game_over = true;
+          onover();
           let measure = canvas.context.measureText("GAM OVER");
           new Text(canvas, [100-measure.width/2, 100+24], "GAM OVER", "24px Arial", "black", false, 100, false)
         }
