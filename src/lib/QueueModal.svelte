@@ -9,9 +9,16 @@
     if ("close" in e.target.dataset) show = false;
   }
 
-  function removeSong(title) {
+  function removeSong(title, url) {
     const x = current_queue.splice(current_queue.indexOf(title), 1);
     current_queue = current_queue;
+    const hdr = {};
+    const data = {
+      event: "song-remove",
+      url: url
+    };
+    //console.log("SC Queue Remove: ", hdr, data);
+    emit(hdr, data);
   }
 
   let error = false;
@@ -23,7 +30,7 @@
   }
 
   async function get_song_info(url) {
-    let resp = await fetch("https://soundcloud.com/oembed?format=json&url="+encodeURIComponent(url));
+    let resp = await fetch("../../soundcloud_oembed?url="+encodeURIComponent(url));
     resp = await resp.json();
     return {
       title: resp.title,
@@ -33,22 +40,24 @@
   }
 
   async function queueSong() {
-    if (!sc_q_url.startsWith("https://soundcloud.com")) {
+    if (!soundcloud_url.startsWith("https://soundcloud.com")) {
       error = "Invalid soundcloud url! It must start with https://soundcloud.com";
       return;
     }
-    let song_info = await get_song_info(sc_q_url);
+    let song_info = await get_song_info(soundcloud_url);
     //send song
     const hdr = {};
     const data = {
       event: "song-add",
+      url: soundcloud_url,
       title: song_info.title,
       artist: song_info.artist,
       description: song_info.description,
       author: nickname,
     };
-    console.log("SC Queue Add: ", hdr, data);
+    //console.log("SC Queue Add: ", hdr, data);
     emit(hdr, data);
+    soundcloud_url = "Queued!";
   }
 
   export let show = false;
@@ -93,10 +102,13 @@
       <div class="queue-container">
         <div style="float:left; width: 70%; margin-right: 5%">
           <div style="overflow-x: hidden">
+            {#if current_queue.length == 0}
+              <h2>Queue is empty! Add something to it? :)</h2>
+            {/if}
             {#each current_queue as song}
               <div class="queue-element" style="margin-right: 0px;">
                 <span style="float:left; margin-left: 30px; margin-top: 10px"
-                  >{song.title}</span
+                  ><a class="song-link" href={song.url} target="_blank">{song.title}</a><span>, queuer: {song.author}</span></span
                 >
                 <span style="float:right; margin-right: 30px; margin-top: 10px">
                   <button>
@@ -107,7 +119,7 @@
                       fill="white"
                       class="bi bi-dash-circle"
                       viewBox="0 0 16 16"
-                      on:click={() => removeSong(song)}
+                      on:click={() => removeSong(song, song.url)}
                     >
                       <path
                         d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
@@ -134,7 +146,7 @@
             ><strong>Add New Song: </strong></span
           >
           <span style="float:right; margin-right: 20px; margin-top: 10px">
-            <button>
+            <button on:click={queueSong}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -234,8 +246,12 @@
   }
   #sc-url-input {
     color: black;
+    width: 100%;
   }
   .error {
     color: red;
+  }
+  .song-link:hover {
+    color: lightblue;
   }
 </style>
