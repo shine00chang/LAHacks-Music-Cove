@@ -3,6 +3,7 @@
   import GameModal from './GameModal.svelte';
   import QueueModal from './QueueModal.svelte';
 
+  let current_queue = ["Angry Birds Trap Remix", "Fortnite Ballers Anthem", "Ram Ranch IV", "Heat Waves", "Please fucking kill me"];
 
   export let show = false;
   let game_modal_show = false;
@@ -11,11 +12,14 @@
 
 </script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 {#if show}
   <nav class="navbar-dark bg-dark" transition:fly={{x: 250, opacity: 1}}>
     <ul class="links-list">
       <li>
         <button on:click={() => {member_modal_show = true; show = false;}}>
+          
           <p style="color: #fff;">View Members</p>
         </button>
       </li>
@@ -25,8 +29,8 @@
         </button>
       </li>
       <li>
-        <button on:click={() => {queue_modal_show = true; show = false;}}>
-          <p style="color: #fff;">Access Queue</p>
+        <button on:click={() => {queue_modal_show = true; show = false;}} style="color: white">
+          <p style="color: #fff; bottom-margin: 20px">Access Queue</p>
         </button>
       </li>
     </ul>
@@ -34,7 +38,7 @@
 {/if}
 
 <GameModal bind:show={game_modal_show} />
-<QueueModal bind:show={queue_modal_show} />
+<QueueModal bind:show={queue_modal_show} bind:current_queue />
 		
 <style>
 nav {
@@ -61,5 +65,11 @@ button {
   padding: 0;
   border: none;
   background: none;
+}
+
+span svg {
+  fill: #3b5998;
+  height: 1em;
+  vertical-align: bottom; /* ADDED */
 }
 </style>
