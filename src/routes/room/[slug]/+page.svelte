@@ -1,5 +1,6 @@
 <svelte:head>
-  <script src="./../../sc_api.js"/>
+  <script src="/../../static/sc_api.js"/>
+  <script src="/../../static/blackbeard.js"/>
 </svelte:head>
 
 <script>
