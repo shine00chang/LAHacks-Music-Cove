@@ -21,7 +21,7 @@
       <input class="nickname_input" bind:value={nickname} placeholder="Nickname here..."/>
       {#if can_continue}
         <div>
-        <button type="button" class="btn btn-primary" style="margin-top: 100px;" on:click={close}>Continue</button>
+        <button type="button" class="btn btn-secondary" style="margin-top: 100px;" on:click={close}>Continue</button>
       </div>
       {/if}
     </div>
@@ -43,7 +43,7 @@
     }
 
       .gradient_background {
-        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background: linear-gradient(-45deg, #545353, #3f3e3e, #303131, #0f0f0f);
         background-size: 400% 400%;
         animation: gradient 15s ease infinite;
         height: 100vh;

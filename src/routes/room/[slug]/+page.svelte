@@ -319,17 +319,23 @@
   />
   {#if keys.shared !== undefined}
     <!--If user has the secret key, show them all the components -->
-    <div id="grid-container">
-      <div id="chat-container" class="grid-item">
+    <div id="grid-container" class="row">
+      <div id="chat-container" class="col-sm">
         <Chat {nickname} emit={send} />
       </div>
-      <div id="approve-container" class="grid-item">
-        <Approve {requests} />
-        <button on:click={() => console.log(nick_table)}>Dump Table</button>
+      <div class="col-sm">
+		<div id="approve-container" >
+			<Approve {requests} />
+			<button on:click={() => console.log(nick_table)}>Dump Table</button>
+		</div>
+
+		<div id="sc-play-container">
+			<div  class="col-sm">
+				<SCPlay {current_soundcloud_url} bind:value={next_song}/>
+			  </div>
+		</div>
       </div>
-      <div id="sc-play-container" class="grid-item">
-        <SCPlay {current_soundcloud_url} bind:value={next_song}/>
-      </div>
+
     </div>
   {:else if waiting}
     <!--Show them waiting for approval-->
@@ -341,8 +347,47 @@
 <style>
   .main {
     padding: 6px;
+    height: 100%;
+    overflow: hidden;
+        
   }
+
   #grid-container {
+	height: 100vh;
+	background-color: #2d2d2d;
+  }
+  #chat-container {
+	height: 90%;
+	width: 90%;
+	border-radius: 20px;
+	background-color: #4f4f4f;
+	margin: 5px;
+	margin-top: 5px;
+	margin-bottom: 15px;
+  }
+
+  #approve-container {
+	height: 44%;
+	width: 90%;
+	border-radius: 20px;
+	background-color: #4f4f4f;
+	margin: 5px;
+	margin-top: 5px;
+	margin-bottom: 15px
+  }
+
+  #sc-play-container {
+	height: 44%;
+	width: 90%;
+	border-radius: 20px;
+	background-color: #4f4f4f;
+	margin: 5px;
+	margin-top: 5px;
+	margin-bottom: 15px
+  }
+
+
+  /*#grid-container {
     display: grid;
     grid-template-columns: auto auto auto;
     padding: 5px;
@@ -355,5 +400,5 @@
       grid-column-start: 1;
       grid-column-end: 2;
     }
-  }
+  }*/
 </style>

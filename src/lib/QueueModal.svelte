@@ -172,6 +172,11 @@
 {/if}
 
 <style>
+
+* {
+  font-family: 'Lilita One', cursive;
+}
+
   .modal-overlay {
     position: absolute;
     top: 0;

@@ -31,17 +31,52 @@
   };
 </script>
 
-<div>
-  {#each messages as message}
+
+<div class="row">
+  <div class="msgs">
+    {#each messages as message}
     <div>
       <span class="message-container"
         ><b class="message-author" title={message.key}>{message.author}</b>:
         <span class="message-content">{message.text}</span></span
       >
     </div>
-  {/each}
-  <form>
-    <input type="text" bind:value={text_input} />
-    <button on:click={onSend}>⮕ </button>
+    {/each}
+  </div>
+
+  <form class="input-box">
+    <input type="text" bind:value={text_input} size="70" style="border-radius: 15px"/>
+    <button on:click={onSend} style={"background-color: red; color: white; border-radius: 15px; width: 40px; height: 45px; margin-left: 2px"}>⮕ </button>
   </form>
+
+  </div>
+
+<div>
+
+
+
+  <style>
+    .input-box {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      margin: 10px;
+      display: flex
+    }
+
+    .left {
+      height: 92vh
+    }
+
+    .right {
+      height: 90vh
+    }
+
+    .msgs {
+      margin-left: 35px;
+      margin-top: 15px
+    }
+  </style>
+
+
 </div>

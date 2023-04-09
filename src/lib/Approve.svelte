@@ -15,8 +15,8 @@
       <!--{nick: nick, callback: cb}-->
       <div id={"pending-req-"+req.public_key}>
         <h3>Pending Request from <span class="nickname">{req.nick}</span></h3>
-        <button on:click={() => pending_handle(req, true )}>Accept </button>
-        <button on:click={() => pending_handle(req, false)}>Decline</button>
+        <button on:click={() => pending_handle(req, true )} type="button" class="btn btn-success">Accept</button>
+        <button on:click={() => pending_handle(req, false)} type="button" class="btn btn-danger">Decline</button>
       </div>
     {/each}
   </div>
