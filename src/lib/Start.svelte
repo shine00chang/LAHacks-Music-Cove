@@ -1,6 +1,6 @@
 <script>
   export let nickname = "";
-  export let generate = false;
+  export let onsubmit;
   $: {
     nickname = nickname.trim();
     if (nickname.length !== 0) {
@@ -13,7 +13,7 @@
   function close() {
     document.getElementById("start-modal").style.display = "none";
     console.log(nickname);
-    generate = true;
+	onsubmit();
   }
 </script>
 
