@@ -7,13 +7,10 @@
 	let alert_type = 0;
 	import { onMount } from "svelte";
 	import { page } from "$app/stores";
-  import GameModal from "$lib/GameModal.svelte";
 	import Start from "$lib/Start.svelte";
 	import Approve from "$lib/Approve.svelte";
 	import SCPlay from "$lib/SCPlay.svelte";
 	import Chat from "$lib/Chat.svelte";
-  import ScoreBoard from "$lib/ScoreBoard.svelte";
-
 	import io from "socket.io-client";
 	import nacl from "tweetnacl";
 
@@ -66,14 +63,13 @@
 
 	// Binded Vars
 	let socket = io(WS_URL);
-	let nick_table = {};
 	let nickname = "";
 	let requests = [];
-  
-  let waiting = false;
+	let waiting = false;
+	let nick_table = {};
 	const keys = { shared: undefined, box: {}, sign: {} };
 
-	{ // Set Keys
+	{
 		const boxK = nacl.box.keyPair();
 		keys.box.pub = utoh(boxK.publicKey);
 		keys.box.pri = utoh(boxK.secretKey);
@@ -422,17 +418,20 @@
         <SCPlay {current_soundcloud_url} {play_next} />
 				<button on:click={() => console.log(nick_table)}>Dump Table</button>
       </div>
-
-      <div id="chat-container" class="grid-item">
-				<Chat {nickname} emit={send} />
-			</div>
-
-			<div id="game-container" class="grid-item">
-        <GameModal nickname={nickname} emit={send}/>
-        <ScoreBoard />
-			</div>
+      <div class="col-sm">
+		<div id="approve-container" >
+			<Approve {requests} />
+			<button on:click={() => console.log(nick_table)}>Dump Table</button>
 		</div>
 
+		<div id="sc-play-container">
+			<div  class="col-sm">
+				<SCPlay {current_soundcloud_url} bind:value={next_song}/>
+			  </div>
+		</div>
+      </div>
+
+    </div>
   {:else if waiting}
     <!--Show them waiting for approval-->
       <h1>Room: {ROOM_NAME}</h1>
@@ -482,18 +481,19 @@
 	margin-bottom: 15px
   }
 
-	#grid-container {
-		display: grid;
-		grid-template-columns: 20% auto 30%;
-		padding: 5px;
-	}
-	@media screen and (max-width: 1000px) {
-		#grid-container {
-			grid-template-columns: auto auto;
-		}
-		#sc-play-container {
-			grid-column-start: 1;
-			grid-column-end: 2;
-		}
-	}
+
+  /*#grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 5px;
+  }
+  @media screen and (max-width: 1000px) {
+    #grid-container {
+      grid-template-columns: auto auto;
+    }
+    #sc-play-container {
+      grid-column-start: 1;
+      grid-column-end: 2;
+    }
+  }*/
 </style>
