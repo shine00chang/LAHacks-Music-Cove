@@ -1,5 +1,6 @@
 <script>
-  export let e2e;
+  export let emit;
+  export let nickname;
   let sc_q_url = "";
   $: {
     //remove query params
@@ -10,7 +11,7 @@
     resp = await resp.json();
     return {
       title: resp.title,
-      author: resp.author_name,
+      artist: resp.author_name,
       description: resp.description
     }
   }
@@ -21,8 +22,17 @@
       return;
     }
     let song_info = await get_song_info(sc_q_url);
-    //todo: send e2e message adding to queue
-    //e2e.send()
+    //send song
+    const hdr = {};
+    const data = {
+      event: "song-add",
+      title: song_info.title,
+      artist: song_info.artist,
+      description: song_info.description,
+      author: nickname,
+    };
+    console.log("SC Queue Add: ", hdr, data);
+    emit(hdr, data);
   }
 </script>
 

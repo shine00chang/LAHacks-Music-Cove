@@ -141,6 +141,7 @@
       if (shared_secret_hash !== SHARED_HASH) return console.error("SECRET KEY HASHES DO NOT MATCH");
       keys.shared = data.shared_secret;
       keys.hashed_shared = shared_secret_hash;
+      share_room_url = `${$page.url.origin}/room/${ROOM_NAME}?shared_hash=${keys.hashed_shared}`;
       console.log("shared key: ", keys.shared);
 
       on_sock_start();
@@ -247,9 +248,48 @@
     });
   };
 
+  let song_queue = [];
+
+  onMount(() => {
+    document.addEventListener("song-add", event => {
+      let data = event.detail.data;
+      //add to queue
+      song_queue.push({
+        author: data.author,
+        url: data.url,
+        title: data.title
+      });
+      song_queue = [...song_queue];
+    });
+
+    document.addEventListener("song-remove", event => {
+      let song_url = event.detail.data?.url?.toLowerCase().trim();
+      if (!song_url) {
+        return;
+      }
+      let removed = false;
+      //only remove one song with the url in queue - not all songs with that url
+      song_queue = song_queue.filter((item) => {
+        let condition = item.url.toLowerCase().trim() === song_url;
+        if (condition && !removed) {
+          removed = true;
+          return false;
+        }
+        return true;
+      });
+      song_queue = [...song_queue];
+    });
+  });
+
+  let current_soundcloud_url = "https://soundcloud.com/7opi5oei5fbj/summer-slack";
+
   let next_song;
   $: {
-    //
+    song_queue.shift();
+    current_soundcloud_url = song_queue[0]?.url;
+    if (!current_soundcloud_url) {
+      current_soundcloud_url = "";
+    }
   }
 </script>
 
@@ -286,7 +326,7 @@
         <button on:click={() => console.log(nick_table)}>Dump Table</button>
       </div>
       <div id="sc-play-container" class="grid-item">
-        <SCPlay current_soundcloud_url="https://soundcloud.com/7opi5oei5fbj/summer-slack" bind:value={next_song}/>
+        <SCPlay {current_soundcloud_url} bind:value={next_song}/>
       </div>
     </div>
   {:else if waiting}
