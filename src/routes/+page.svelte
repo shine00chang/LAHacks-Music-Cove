@@ -52,7 +52,7 @@
         >
     </form>
 </div>
-<h2 id="q1">What is MusicCove?</h2>
+<h3 id="q1">What is MusicCove?</h3>
 <p>
     MusicCove is a communication website designed for music lovers to connect
     and share their passion for music. Users can create profiles, join groups,
@@ -68,7 +68,7 @@
 
 <style>
     p {
-        font-family: "Verdana";
+        font-family: 'Alegreya', serif;
         color: azure;
         background: rgb(0, 0, 0);
         background: linear-gradient(
@@ -78,8 +78,8 @@
         text-align: center;
         font-size: 20px;
     }
-    h2 {
-        font-family: "Verdana";
+    h3 {
+        font-family: 'Alegreya', serif;
         color: azure;
         background: rgb(0, 0, 0);
         background: linear-gradient(
@@ -99,13 +99,15 @@
         background-attachment: fixed;
         background-size: cover;
     }
+    
     h1 {
-        font-family: "Verdana";
+        font-family: 'Alegreya', serif;
         color: azure;
         font-size: 50px;
         height: 80px;
         align-self: center;
     }
+    
     div.scroll {
         background-color: #fed9ff;
         width: 600px;
@@ -115,6 +117,7 @@
         text-align: center;
         padding: 20px;
     }
+    
     form {
     }
 </style>

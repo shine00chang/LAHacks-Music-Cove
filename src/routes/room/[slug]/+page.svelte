@@ -33,15 +33,14 @@
 </script>
 
 <!--Modal thing that gets nickname and indicates when E2E should be init'd-->
-<Start bind:nickname={nickname} bind:generate={generate}/>
+<!--<Start bind:nickname={nickname} bind:generate={generate}/>>-->
 
-{#if in_room}
+<!--{#if in_room}-->
   <!--If user has the secret key, show them all the components -->
   <Navbar room_name={ROOM_NAME} bind:sidebar_open={open}/>
   <Sidebar bind:show={open} />
 
-{:else if generate}
-  <!--Show them waiting for approval-->
+<!--{:else if generate}
   <h1>Room: {ROOM_NAME}</h1>
   <h2>Waiting for Approval...</h2>
-{/if}
+{/if}-->
