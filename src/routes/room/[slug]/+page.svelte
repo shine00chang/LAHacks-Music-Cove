@@ -21,6 +21,13 @@
   const create = $page.url.searchParams.get("create") === "true";
   console.log(ROOM_NAME, create);
 
+  let share_room_url;
+  $: {
+    if (share_room_url) {
+      alert(`Share the url "${share_room_url}"`);
+    }
+  }
+
   function utoh(u) {
     let hex = "";
     u.forEach((i) => (hex += i.toString(16).padStart(2, "0")));
@@ -78,11 +85,14 @@
       socket.off("room-create-rsp");
     }, 10000);
 
-    socket.once("room-create-rsp", (msg) => {
+    socket.once("room-create-rsp", async (msg) => {
       if (!msg.hdr.approved) return console.error("room creation rejected");
 
       //generate 32 bytes shared key for secret key encryption
       keys.shared = utoh(nacl.randomBytes(32));
+      keys.hashed_shared = utoh(new Uint8Array(await crypto.subtle.digest("SHA-256", htou(keys.shared).buffer)));
+      share_room_url = `${$page.url.origin}/room/${ROOM_NAME}?shared_hash=${keys.hashed_shared}`;
+      console.log(share_room_url)
       console.log("room created");
       nick_table[keys.sign.pub] = nickname;
       on_sock_start();
@@ -108,7 +118,7 @@
       alert("timed out");
       socket.off("room-join-rsp");
     }, 10000);
-    socket.once("room-join-rsp", (msg) => {
+    socket.once("room-join-rsp", async (msg) => {
       console.log("join response: ", msg);
       if (!msg.hdr.approved) return console.error("request rejected");
 
@@ -124,7 +134,10 @@
       );
       const data = utoo(plain);
       nick_table = data.nick_table;
+      let shared_secret_hash = utoh(new Uint8Array(await crypto.subtle.digest("SHA-256", htou(data.shared_secret).buffer)));
+      if (shared_secret_hash !== SHARED_HASH) return console.error("SECRET KEY HASHES DO NOT MATCH");
       keys.shared = data.shared_secret;
+      keys.hashed_shared = shared_secret_hash;
       console.log("shared key: ", keys.shared);
 
       on_sock_start();

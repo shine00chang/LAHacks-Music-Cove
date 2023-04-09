@@ -51,6 +51,7 @@
         Using our homegrown end to end encryption (e2e) protocol, people can hang out in virtual rooms and just hang out - chatting and playing games or music - all while knowing that their privacy is protected.
         Unlike other sites, MusicCove's e2e protocol makes it so no one, except those in the room with you, can decrypt your messages. Not even the server!
         And since's this is all open source, and has a TOR instance, users can easily further secure their privacy by using the TOR site or running their own backend server.
+        While the protocol is original, we obviously used an audited cryptography library for the cryptography primitives.
         Even better, the interface and protocol is made so, you, the user, don't need to have any technical knowledge, while still remaining completely private and secure.
     </p>
 </div>
