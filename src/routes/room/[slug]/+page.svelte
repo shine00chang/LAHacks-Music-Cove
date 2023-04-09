@@ -1,7 +1,3 @@
-<svelte:head>
-  <script src="./../../sc_api.js"/>
-</svelte:head>
-
 <script>
   //imports and exports
   import Navbar from "$lib/Navbar.svelte";
@@ -184,7 +180,11 @@
 		requests = [...requests, {nick: nick, public_key: peer_boxK, approve_callback: cb}];
 	});
   }
+
 </script>
+<svelte:head>
+  <script src="./../../sc_api.js"/>
+</svelte:head>
 
 <!--Modal thing that gets nickname and indicates when E2E should be init'd-->
 <Start bind:nickname onsubmit={ create ? () => send_create_req(ROOM_NAME) : () => send_join_req(ROOM_NAME, SHARED_HASH) } />

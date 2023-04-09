@@ -1,14 +1,7 @@
 <script>
     import Faq from "./faq.svelte";
     import Contact from "./contact.svelte";
-
-    import {
-        Navbar,
-        NavBrand,
-        NavLi,
-        NavUl,
-        NavHamburger,
-    } from "flowbite-svelte";
+    import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte'
 
     function create_room() {
         window.location =
@@ -20,36 +13,33 @@
 
 <Navbar let:hidden let:toggle rounded color="form">
     <NavBrand href="/">
-        <img
-            src="https://media.discordapp.net/attachments/1088612557008420864/1094405030683082812/bettericon.png?width=428&height=412"
-            class="mr-3 h-6 sm:h-9"
-            alt="M Logo"
-        />
-        <span
-            class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
-        >
-            MusicCove
-        </span>
+      <img
+        src="https://media.discordapp.net/attachments/1088612557008420864/1094405030683082812/bettericon.png?width=428&height=412"
+        class="mr-3 h-6 sm:h-9"
+        alt="M Logo"
+      />
+      <span style="font-family: Lilita One" class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+        MusicCove
+      </span>
     </NavBrand>
     <NavHamburger on:click={toggle} />
     <NavUl {hidden}>
-        <NavLi href="/" active={true}>Home</NavLi>
-        <NavLi href="/faq">FAQ</NavLi>
-        <NavLi href="/contact">Contact</NavLi>
+      <NavLi style="font-family: Lilita One" href="/" active={true}>Home</NavLi>
+      <NavLi style="font-family: Lilita One" href="/faq">FAQ</NavLi>
+      <NavLi style="font-family: Lilita One" href="/contact">Contact</NavLi>
     </NavUl>
-</Navbar>
+  </Navbar>
 <svelte:head>
     <link href="/front.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lilita+One" rel="stylesheet"/>
 </svelte:head>
 
 <div id="bg" class="scroll">
     <h1>MusicCove</h1>
 
-    <form>
+    <form id="form">
         <input id="room-name" type="text" placeholder="Room name..." />
-        <button on:click={create_room} id="button" style="color: azure"
-            >Create</button
-        >
+        <button on:click={create_room} style="color: azure">Create</button>
     </form>
 </div>
 <h2 id="q1">What is MusicCove?</h2>
@@ -67,6 +57,13 @@
 </p>
 
 <style>
+    input {
+        border-radius: 25px;
+        border: 2px solid #609;
+        padding: 20px; 
+        width: 200px;
+        height: 15px; 
+    }
     p {
         font-family: "Verdana";
         color: azure;
@@ -79,19 +76,19 @@
         font-size: 20px;
     }
     h2 {
-        font-family: "Verdana";
+        font-family: "Lilita One";
         color: azure;
         background: rgb(0, 0, 0);
         background: linear-gradient(
             0deg,
             rgba(0, 0, 0, 1) 0%,
-            rgba(1, 70, 112, 1) 100%
+            rgba(1, 80, 123, 1) 100%
         );
         text-align: center;
         font-size: 100px;
     }
     button {
-        font-family: "Verdana";
+        font-family: "Lilita One";
     }
     div#bg {
         background-image: url("https://wallpaperaccess.com/full/1261201.jpg");
@@ -100,21 +97,19 @@
         background-size: cover;
     }
     h1 {
-        font-family: "Verdana";
+        font-family: "Lilita One";
         color: azure;
-        font-size: 50px;
+        font-size: 100px;
         height: 80px;
         align-self: center;
     }
     div.scroll {
         background-color: #fed9ff;
-        width: 600px;
+        width: 500px;
         height: 150px;
         overflow-x: hidden;
         overflow-y: auto;
         text-align: center;
         padding: 20px;
-    }
-    form {
     }
 </style>
