@@ -1,14 +1,7 @@
 <script>
     import Faq from "./faq.svelte";
     import Contact from "./contact.svelte";
-
-    import {
-        Navbar,
-        NavBrand,
-        NavLi,
-        NavUl,
-        NavHamburger,
-    } from "flowbite-svelte";
+    import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte'
 
     function create_room() {
         window.location =
@@ -20,26 +13,27 @@
 
 <Navbar let:hidden let:toggle rounded color="form">
     <NavBrand href="/">
-        <img
-            src="https://media.discordapp.net/attachments/1088612557008420864/1094405030683082812/bettericon.png?width=428&height=412"
-            class="mr-3 h-6 sm:h-9"
-            alt="M Logo"
-        />
-        <span
-            class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
-        >
-            MusicCove
-        </span>
+      <img
+        src="https://media.discordapp.net/attachments/1088612557008420864/1094405030683082812/bettericon.png?width=428&height=412"
+        class="mr-3 h-6 sm:h-9"
+        alt="M Logo"
+      />
+      <span style="font-family: Lilita One" class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+        MusicCove
+      </span>
     </NavBrand>
     <NavHamburger on:click={toggle} />
     <NavUl {hidden}>
-        <NavLi href="/" active={true}>Home</NavLi>
-        <NavLi href="/faq">FAQ</NavLi>
-        <NavLi href="/contact">Contact</NavLi>
+      <NavLi style="font-family: Lilita One" href="/" active={true}>Home</NavLi>
+      <NavLi style="font-family: Lilita One" href="/faq">FAQ</NavLi>
+      <NavLi style="font-family: Lilita One" href="/contact">Contact</NavLi>
     </NavUl>
-</Navbar>
+  </Navbar>
 <svelte:head>
+    <title>MusicCove</title>
     <link href="/front.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lilita+One" rel="stylesheet"/>
+    <meta http-equiv="Onion-Location" content="http://eecflincupi352qlelnar7ahghmhrmiqil4p5cwjwimidsrwqxtlhbyd.onion">
 </svelte:head>
 
 <div id="bg" class="scroll">
@@ -47,51 +41,51 @@
 
     <form>
         <input id="room-name" type="text" placeholder="Room name..." />
-        <button on:click={create_room} id="button" style="color: azure"
-            >Create</button
-        >
+        <button on:click={create_room} style="color: azure">Create</button>
     </form>
 </div>
-<h3 id="q1">What is MusicCove?</h3>
-<p>
-    MusicCove is a communication website designed for music lovers to connect
-    and share their passion for music. Users can create profiles, join groups,
-    and participate in discussions on various topics related to music. The site
-    also provides a platform for musicians to showcase their talent and connect
-    with fans. With MusicCove, users can discover new music, share their
-    favorite songs and albums, and connect with like-minded individuals from
-    around the world. Whether you're a musician, a music enthusiast, or simply
-    someone who loves to connect with others through music, MusicCove is the
-    perfect platform to share your passion and connect with others who share
-    your interests.
-</p>
+<div id="what-is">
+    <h2 id="q1">What is MusicCove?</h2>
+    <p>
+        MusicCove is ultra private, ultra secure and ultra easy to use.
+        Using our homegrown end to end encryption (e2e) protocol, people can hang out in virtual rooms and just hang out - chatting and playing games or music - all while knowing that their privacy is protected.
+        Unlike other sites, MusicCove's e2e protocol makes it so no one, except those in the room with you, can decrypt your messages. Not even the server!
+        And since's this is all open source, and has a TOR instance, users can easily further secure their privacy by using the TOR site or running their own backend server.
+        While the protocol is original, we obviously used an audited cryptography library for the cryptography primitives.
+        Even better, the interface and protocol is made so, you, the user, don't need to have any technical knowledge, while still remaining completely private and secure.
+    </p>
+</div>
 
 <style>
+    input {
+        border-radius: 25px;
+        border: 2px solid rgb(0, 125, 153);
+        padding: 20px; 
+        width: 200px;
+        height: 15px; 
+    }
     p {
         font-family: 'Alegreya', serif;
         color: azure;
-        background: rgb(0, 0, 0);
-        background: linear-gradient(
-            0deg,
-            rgba(1, 79, 125, 1) 100% rgba(0, 0, 0, 1) 0%
-        );
         text-align: center;
         font-size: 20px;
     }
-    h3 {
-        font-family: 'Alegreya', serif;
+    h2 {
+        font-family: "Lilita One";
         color: azure;
-        background: rgb(0, 0, 0);
-        background: linear-gradient(
-            0deg,
-            rgba(0, 0, 0, 1) 0%,
-            rgba(1, 70, 112, 1) 100%
-        );
         text-align: center;
-        font-size: 100px;
+        font-size: 75px;
     }
     button {
-        font-family: "Verdana";
+        background-color: #4CAF50; /* Green */
+        border-radius: 25px;
+        border: 2px;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
     }
     div#bg {
         background-image: url("https://wallpaperaccess.com/full/1261201.jpg");
@@ -101,23 +95,30 @@
     }
     
     h1 {
-        font-family: 'Alegreya', serif;
+        font-family: "Lilita One";
         color: azure;
-        font-size: 50px;
-        height: 80px;
+        font-size: 175px;
+        height: 250px;
         align-self: center;
     }
     
     div.scroll {
         background-color: #fed9ff;
-        width: 600px;
+        width: 500px;
         height: 150px;
         overflow-x: hidden;
         overflow-y: auto;
         text-align: center;
         padding: 20px;
     }
-    
-    form {
+    #what-is {
+        padding: 0 5vw 5vh 5vw;
+        padding-bottom: 5vh;
+        background: rgb(0, 0, 0);
+        background: linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(1, 80, 123, 1) 100%
+        );
     }
 </style>
