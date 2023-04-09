@@ -37,10 +37,18 @@
       text-align: center;
       color: #ededed;
       font-size: 60px;
-      }
+      padding-top: 10vh;
+    }
 
     .nickname_input {
       text-align: center;
+    }
+
+    #start-modal {
+      margin-top: -6px;
+      margin-left: -6px;
+      width: 100vw;
+      height: 100vh;
     }
 
       .gradient_background {

@@ -443,9 +443,9 @@
 <style>
   .main {
     padding: 6px;
+    padding-bottom: 0px;
     height: 100%;
     overflow: hidden;
-        
   }
 
   #grid-container {
