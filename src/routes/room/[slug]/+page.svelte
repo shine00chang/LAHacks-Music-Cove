@@ -8,6 +8,7 @@
   import { page } from "$app/stores";
   import Start from "$lib/Start.svelte";
   import Approve from "$lib/Approve.svelte";
+  import SCPlay from "$lib/SCPlay.svelte";
   import Chat from "$lib/Chat.svelte";
   import io from "socket.io-client";
   import nacl from "tweetnacl";
@@ -57,7 +58,7 @@
   let socket = io(WS_URL);
   let nickname = "";
   let requests = [];
-  let generate = false;
+  let waiting = false;
   let nick_table = {};
   const keys = { shared: undefined, box: {}, sign: {} };
 
@@ -72,6 +73,7 @@
   }
 
   const send_create_req = () => {
+    waiting = true;
     console.log("'Create Room' Request sent");
 
     // Send request
@@ -101,6 +103,7 @@
   };
 
   const send_join_req = (hash) => {
+    waiting = true;
     console.log("'Join Room' Request sent");
 
     // Send Box key, rid, nick
@@ -243,6 +246,11 @@
       ];
     });
   };
+
+  let next_song;
+  $: {
+    //
+  }
 </script>
 
 <svelte:head>
@@ -251,22 +259,59 @@
 </svelte:head>
 
 <!--Modal thing that gets nickname and indicates when E2E should be init'd-->
-<Start
-  bind:nickname
-  onsubmit={create
-    ? () => send_create_req(ROOM_NAME)
-    : () => send_join_req(ROOM_NAME, SHARED_HASH)}
-/>
-{#if keys.shared !== undefined}
-  <!--If user has the secret key, show them all the components -->
-  <Navbar room_name={ROOM_NAME} bind:sidebar_open={open} />
-  <Sidebar bind:show={open} />
 
-  <Chat {nickname} emit={send} />
-  <Approve {requests} />
-  <button on:click={() => console.log(nick_table)}>Dump Table</button>
-{:else if generate}
-  <!--Show them waiting for approval-->
-  <h1>Room: {ROOM_NAME}</h1>
-  <h2>Waiting for Approval...</h2>
+
+<!--This code is kinda repeated in around 20 lines from now, sorry! but itt was for good reason -taisei -->
+{#if keys.shared !== undefined}
+    <!--If user has the secret key, show them all the components -->
+    <Navbar room_name={ROOM_NAME} bind:sidebar_open={open} />
+    <Sidebar bind:show={open} />
 {/if}
+
+<div class="main">
+  <Start
+    bind:nickname
+    onsubmit={create
+      ? () => send_create_req(ROOM_NAME)
+      : () => send_join_req(ROOM_NAME, SHARED_HASH)}
+  />
+  {#if keys.shared !== undefined}
+    <!--If user has the secret key, show them all the components -->
+    <div id="grid-container">
+      <div id="chat-container" class="grid-item">
+        <Chat {nickname} emit={send} />
+      </div>
+      <div id="approve-container" class="grid-item">
+        <Approve {requests} />
+        <button on:click={() => console.log(nick_table)}>Dump Table</button>
+      </div>
+      <div id="sc-play-container" class="grid-item">
+        <SCPlay current_soundcloud_url="https://soundcloud.com/7opi5oei5fbj/summer-slack" bind:value={next_song}/>
+      </div>
+    </div>
+  {:else if waiting}
+    <!--Show them waiting for approval-->
+      <h1>Room: {ROOM_NAME}</h1>
+      <h2>Waiting for Approval...</h2>
+  {/if}
+</div>
+
+<style>
+  .main {
+    padding: 6px;
+  }
+  #grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 5px;
+  }
+  @media screen and (max-width: 1000px) {
+    #grid-container {
+      grid-template-columns: auto auto;
+    }
+    #sc-play-container {
+      grid-column-start: 1;
+      grid-column-end: 2;
+    }
+  }
+</style>

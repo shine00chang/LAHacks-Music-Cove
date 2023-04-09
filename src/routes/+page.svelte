@@ -27,6 +27,7 @@
       <NavLi style="font-family: Lilita One" href="/" active={true}>Home</NavLi>
       <NavLi style="font-family: Lilita One" href="/faq">FAQ</NavLi>
       <NavLi style="font-family: Lilita One" href="/contact">Contact</NavLi>
+      <NavLi style="font-family: Lilita One" href="https://github.com/downloadablecontent/LAHacks-Music-Cove">Github</NavLi>
     </NavUl>
   </Navbar>
 <svelte:head>
@@ -113,12 +114,13 @@
     }
     #what-is {
         padding: 0 5vw 5vh 5vw;
-        padding-bottom: 5vh;
+        /* override for above 5vh padding bottom, above needed as backup */
+        padding-bottom: max(9vh, 35px);
         background: rgb(0, 0, 0);
         background: linear-gradient(
             0deg,
-            rgba(0, 0, 0, 1) 0%,
-            rgba(1, 80, 123, 1) 100%
+            rgb(22, 22, 22) 0%,
+            #024671 100%
         );
     }
 </style>
