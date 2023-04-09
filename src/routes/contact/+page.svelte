@@ -7,6 +7,14 @@
         NavHamburger,
     } from "flowbite-svelte";
     import {
+        Avatar,
+        Dropdown,
+        DropdownHeader,
+        DropdownItem,
+        DropdownDivider,
+        Tooltip,
+    } from "flowbite-svelte";
+    import {
         Footer,
         FooterCopyright,
         FooterLinkGroup,
@@ -83,6 +91,18 @@
     </NavUl>
 </Navbar>
 <h1>Contacts</h1>
+<img src="https://cdn.discordapp.com/avatars/471373928485355530/b1dcb7d92956ce5d7c1d75e732dfce57.webp?size=160" alt="sriram"/>
+<h2>Sriram Loganathan</h2>
+<p>Cool Dude</p>
+<img src="https://cdn.discordapp.com/avatars/239770148305764352/d1888a729733cafbc216c2c293a877b6.webp?size=160" alt="taisei"/>
+<h2>Taisei something</h2>
+<p>Smart man</p>
+<img src="https://cdn.discordapp.com/avatars/599433909561982996/463a75b34a2c72a08d3b03e6cf1dd609.webp?size=160" alt="shine"/>
+<h2>Shine Chang</h2>
+<p>Shinay</p>
+<img src="https://cdn.discordapp.com/avatars/532757647108210692/07b29b61f87592014b558f64baeb9b7b.webp?size=160" alt="bhargav"/>
+<h2>Bhargav</h2>
+<p>bald af</p>
 <Footer>
     <FooterCopyright href="/" by="MusicCove™" year={2023} />
     <FooterLinkGroup
@@ -94,3 +114,31 @@
         <FooterLink href="/">Contact</FooterLink>
     </FooterLinkGroup>
 </Footer>
+
+<style>
+    img {
+        display: block;
+        border-radius: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    h1 {
+        font-family: "Lilita One";
+        color: azure;
+        font-size: 175px;
+        height: 250px;
+        text-align: center;
+    }
+    h2 {
+        font-family: "Lilita One";
+        color: azure;
+        text-align: center;
+        font-size: 60px;
+    }
+    p {
+        font-family: "Alegreya", serif;
+        color: azure;
+        text-align: center;
+        font-size: 20px;
+    }
+</style>

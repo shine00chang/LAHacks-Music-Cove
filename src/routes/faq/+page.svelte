@@ -6,6 +6,7 @@
         NavUl,
         NavHamburger,
     } from "flowbite-svelte";
+
     import {
         Footer,
         FooterCopyright,
@@ -84,17 +85,20 @@
 </Navbar>
 <h1>FAQ</h1>
 <h2>How old is Shine Chang?</h2>
-<p>Shine Chang is an itty bitty boy from the lands of America who loves to code and play badminton. He is about ten years old and loves everyone.</p>
+<p>
+    Shine Chang is an itty bitty boy from the lands of America who loves to code
+    and play badminton. He is about ten years old and loves everyone.
+</p>
 <h2>How old is Taisei?</h2>
 <p>Taisei is a full-stack developer who works at Google and is very smart.</p>
-<h2></h2>
-<p></p>
-<h2></h2>
-<p></p>
-<h2></h2>
-<p></p>
-<h2></h2>
-<p></p>
+<h2 />
+<p />
+<h2 />
+<p />
+<h2 />
+<p />
+<h2 />
+<p />
 
 <Footer>
     <FooterCopyright href="/" by="MusicCove™" year={2023} />
@@ -107,6 +111,7 @@
         <FooterLink href="/">Contact</FooterLink>
     </FooterLinkGroup>
 </Footer>
+
 <style>
     h1 {
         font-family: "Lilita One";
