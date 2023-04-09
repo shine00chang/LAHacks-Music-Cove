@@ -18,7 +18,6 @@
 
 
 <hr>
-/#{$location}
 <Navbar let:hidden let:toggle rounded color="form" class="text-2xl">
     <NavBrand href="/">
         <img
@@ -53,7 +52,7 @@
         >
         <NavLi
             style="font-family: Lilita One"
-            href="https://github.com/downloadablecontent/LAHacks-Music-Cove"
+            href="https://github.com/PaddingProductions/LAHacks-Music-Cove"
             class="text-2xl mr-3 h-6 sm:h-2">Github</NavLi
         >
         <DarkMode class="text-2xl mr-3 h-6 sm:h-9">

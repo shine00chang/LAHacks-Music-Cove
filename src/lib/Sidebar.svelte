@@ -3,7 +3,10 @@
   import GameModal from './GameModal.svelte';
   import QueueModal from './QueueModal.svelte';
 
-  let current_queue = ["Angry Birds Trap Remix", "Fortnite Ballers Anthem", "Ram Ranch IV", "Heat Waves", "Please fucking kill me"];
+  export let nickname;
+  export let emit;
+
+  export let current_queue;
 
   export let show = false;
   let game_modal_show = false;
@@ -38,7 +41,7 @@
 {/if}
 
 <GameModal bind:show={game_modal_show} />
-<QueueModal bind:show={queue_modal_show} bind:current_queue />
+<QueueModal bind:show={queue_modal_show} bind:current_queue {emit} {nickname} />
 		
 <style>
 nav {
