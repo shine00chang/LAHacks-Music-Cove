@@ -108,8 +108,8 @@
     h1 {
         font-family: "Lilita One";
         color: azure;
-        font-size: 100px;
-        height: 150px;
+        font-size: 175px;
+        height: 250px;
         align-self: center;
     }
     
