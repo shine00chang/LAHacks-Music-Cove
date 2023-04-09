@@ -254,6 +254,7 @@
 
   onMount(() => {
     document.addEventListener("song-add", event => {
+      console.log("received song-add", event.detail);
       let data = event.detail.data;
       //add to queue
       song_queue.push({
@@ -262,6 +263,7 @@
         title: data.title
       });
       song_queue = [...song_queue];
+      console.log(song_queue, song_queue[0])
     });
 
     document.addEventListener("song-remove", event => {
@@ -279,7 +281,6 @@
         }
         return true;
       });
-      song_queue = [...song_queue];
     });
   });
 
@@ -287,10 +288,14 @@
 
   let next_song;
   $: {
-    song_queue.shift();
-    current_soundcloud_url = song_queue[0]?.url;
-    if (!current_soundcloud_url) {
-      current_soundcloud_url = "";
+    console.log(next_song)
+    if (next_song) {
+      let shafted = song_queue.shift();
+      console.log("shifting", song_queue, shafted)
+      current_soundcloud_url = song_queue[0]?.url;
+      if (!current_soundcloud_url) {
+        current_soundcloud_url = "";
+      }
     }
   }
 </script>
@@ -328,7 +333,7 @@
         <button on:click={() => console.log(nick_table)}>Dump Table</button>
       </div>
       <div id="sc-play-container" class="grid-item">
-        <SCPlay {current_soundcloud_url} bind:value={next_song}/>
+        <SCPlay {current_soundcloud_url} bind:next_song={next_song}/>
       </div>
     </div>
   {:else if waiting}

@@ -3,6 +3,7 @@
   export let current_soundcloud_url;
   export let next_song = false;
   $: {
+    console.log("next song", next_song)
     if (current_soundcloud_url.length !== 0 && soundcloud_iframe) {
       let sc_widget = SC.Widget(soundcloud_iframe);
       sc_widget.unbind(SC.Widget.Events.FINISH);

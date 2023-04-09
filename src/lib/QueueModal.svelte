@@ -102,7 +102,7 @@
             {#each current_queue as song}
               <div class="queue-element" style="margin-right: 0px;">
                 <span style="float:left; margin-left: 30px; margin-top: 10px"
-                  >{song.title}</span
+                  ><a class="song-link" href={song.url} target="_blank">{song.title}</a><span>, queuer: {song.author}</span></span
                 >
                 <span style="float:right; margin-right: 30px; margin-top: 10px">
                   <button>
@@ -239,5 +239,8 @@
   }
   .error {
     color: red;
+  }
+  .song-link:hover {
+    color: lightblue;
   }
 </style>
