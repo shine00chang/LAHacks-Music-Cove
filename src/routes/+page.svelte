@@ -18,7 +18,6 @@
 
 
 <hr>
-/#{$location}
 <Navbar let:hidden let:toggle rounded color="form" class="text-2xl">
     <NavBrand href="/">
         <img
