@@ -1,3 +1,7 @@
+<svelte:head>
+  <script src="./../../sc_api.js"/>
+</svelte:head>
+
 <script>
   //imports and exports
   import Navbar from "$lib/Navbar.svelte";

@@ -1,3 +1,16 @@
+<script>
+  import { fly } from 'svelte/transition';
+  import GameModal from './GameModal.svelte';
+  import QueueModal from './QueueModal.svelte';
+
+
+  export let show = false;
+  let game_modal_show = false;
+  let member_modal_show = false;
+  let queue_modal_show = false;
+
+</script>
+
 {#if show}
   <nav class="navbar-dark bg-dark" transition:fly={{x: 250, opacity: 1}}>
     <button on:click={() => {member_modal_show = true; show = false;}}>
@@ -14,18 +27,6 @@
 
 <GameModal bind:show={game_modal_show} />
 <QueueModal bind:show={queue_modal_show} />
-
-<script>
-import { fly } from 'svelte/transition';
-import GameModal from './GameModal.svelte';
-
-
-export let show = false;
-let game_modal_show = false;
-let member_modal_show = false;
-let queue_modal_show = false;
-
-</script>
 		
 <style>
 nav {
