@@ -23,7 +23,7 @@
   }
 
   async function get_song_info(url) {
-    let resp = await fetch("https://soundcloud.com/oembed?format=json&url="+encodeURIComponent(url));
+    let resp = await fetch("../../soundcloud_oembed?url="+encodeURIComponent(url));
     resp = await resp.json();
     return {
       title: resp.title,
@@ -33,22 +33,25 @@
   }
 
   async function queueSong() {
-    if (!sc_q_url.startsWith("https://soundcloud.com")) {
+    if (!soundcloud_url.startsWith("https://soundcloud.com")) {
       error = "Invalid soundcloud url! It must start with https://soundcloud.com";
       return;
     }
-    let song_info = await get_song_info(sc_q_url);
+    let song_info = await get_song_info(soundcloud_url);
     //send song
     const hdr = {};
     const data = {
       event: "song-add",
+      url: soundcloud_url,
       title: song_info.title,
       artist: song_info.artist,
       description: song_info.description,
       author: nickname,
     };
+    console.log(data)
     console.log("SC Queue Add: ", hdr, data);
     emit(hdr, data);
+    soundcloud_url = "Queued!";
   }
 
   export let show = false;
@@ -93,6 +96,9 @@
       <div class="queue-container">
         <div style="float:left; width: 70%; margin-right: 5%">
           <div style="overflow-x: hidden">
+            {#if current_queue.length == 0}
+              <h2>Queue is empty! Add something to it? :)</h2>
+            {/if}
             {#each current_queue as song}
               <div class="queue-element" style="margin-right: 0px;">
                 <span style="float:left; margin-left: 30px; margin-top: 10px"
@@ -134,7 +140,7 @@
             ><strong>Add New Song: </strong></span
           >
           <span style="float:right; margin-right: 20px; margin-top: 10px">
-            <button>
+            <button on:click={queueSong}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -229,6 +235,7 @@
   }
   #sc-url-input {
     color: black;
+    width: 100%;
   }
   .error {
     color: red;
