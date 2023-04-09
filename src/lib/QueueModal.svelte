@@ -9,9 +9,17 @@
     if ("close" in e.target.dataset) show = false;
   }
 
-  function removeSong(title) {
+  function removeSong(title, url) {
     const x = current_queue.splice(current_queue.indexOf(title), 1);
     current_queue = current_queue;
+    console.log("b", current_queue)
+    const hdr = {};
+    const data = {
+      event: "song-remove",
+      url: url
+    };
+    console.log("SC Queue Remove: ", hdr, data);
+    emit(hdr, data);
   }
 
   let error = false;
@@ -48,7 +56,6 @@
       description: song_info.description,
       author: nickname,
     };
-    console.log(data)
     console.log("SC Queue Add: ", hdr, data);
     emit(hdr, data);
     soundcloud_url = "Queued!";
@@ -113,7 +120,7 @@
                       fill="white"
                       class="bi bi-dash-circle"
                       viewBox="0 0 16 16"
-                      on:click={() => removeSong(song)}
+                      on:click={() => removeSong(song, song.url)}
                     >
                       <path
                         d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
