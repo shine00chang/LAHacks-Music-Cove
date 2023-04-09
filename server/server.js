@@ -17,11 +17,6 @@ app.get("/", (req, res) => {
   return res.send({ online: true });
 });
 
-io.on("connection", (socket) => {
-  console.log("user connected");
-  start_listener(socket);
-});
-
 function Room(rid) {
   this.rid = rid;
   this.members = [];
@@ -94,7 +89,6 @@ const start_listener = (socket) => {
   socket.on("room-join-req", (msg) => on_room_join_req(socket, msg));
   socket.on("room-join-rsp", (msg) => on_room_join_rsp(socket, msg));
   socket.on("msg", (msg) => {
-    console.log("msg rcv: ", msg);
     const room = rooms[msg.hdr.rid];
     if (!room) return console.error("none such room");
     console.log(room.members.map((m) => m.id));
