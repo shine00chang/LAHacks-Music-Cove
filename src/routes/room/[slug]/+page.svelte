@@ -286,54 +286,6 @@
 			song_queue = [...song_queue];
 		});
 
-<<<<<<< Updated upstream
-  onMount(() => {
-    document.addEventListener("song-add", event => {
-      console.log("received song-add", event.detail);
-      let data = event.detail.data;
-      //add to queue
-      song_queue.push({
-        author: data.author,
-        url: data.url,
-        title: data.title
-      });
-      song_queue = [...song_queue];
-      console.log(song_queue, song_queue[0])
-    });
-
-    document.addEventListener("song-remove", event => {
-      let song_url = event.detail.data?.url?.toLowerCase().trim();
-      if (!song_url) {
-        return;
-      }
-      let removed = false;
-      //only remove one song with the url in queue - not all songs with that url
-      song_queue = song_queue.filter((item) => {
-        let condition = item.url.toLowerCase().trim() === song_url;
-        if (condition && !removed) {
-          removed = true;
-          return false;
-        }
-        return true;
-      });
-    });
-  });
-
-  let current_soundcloud_url = "https://soundcloud.com/7opi5oei5fbj/summer-slack";
-
-  let next_song;
-  $: {
-    console.log(next_song)
-    if (next_song) {
-      let shafted = song_queue.shift();
-      console.log("shifting", song_queue, shafted)
-      current_soundcloud_url = song_queue[0]?.url;
-      if (!current_soundcloud_url) {
-        current_soundcloud_url = "";
-      }
-    }
-  }
-=======
 		document.addEventListener("song-remove", (event) => {
 			let song_url = event.detail.data?.url?.toLowerCase().trim();
 			if (!song_url) {
@@ -364,7 +316,6 @@
 			current_soundcloud_url = "";
 		}
 	}
->>>>>>> Stashed changes
 </script>
 
 <svelte:head>
@@ -432,33 +383,6 @@
 	</Alert>
 {/if}
 <div class="main">
-<<<<<<< Updated upstream
-  <Start
-    bind:nickname
-    onsubmit={create
-      ? () => send_create_req(ROOM_NAME)
-      : () => send_join_req(ROOM_NAME, SHARED_HASH)}
-  />
-  {#if keys.shared !== undefined}
-    <!--If user has the secret key, show them all the components -->
-    <div id="grid-container">
-      <div id="chat-container" class="grid-item">
-        <Chat {nickname} emit={send} />
-      </div>
-      <div id="approve-container" class="grid-item">
-        <Approve {requests} />
-        <button on:click={() => console.log(nick_table)}>Dump Table</button>
-      </div>
-      <div id="sc-play-container" class="grid-item">
-        <SCPlay {current_soundcloud_url} bind:next_song={next_song}/>
-      </div>
-    </div>
-  {:else if waiting}
-    <!--Show them waiting for approval-->
-      <h1>Room: {ROOM_NAME}</h1>
-      <h2>Waiting for Approval...</h2>
-  {/if}
-=======
 	<Start
 		bind:nickname
 		onsubmit={create
@@ -486,7 +410,6 @@
 		<h1>Room: {ROOM_NAME}</h1>
 		<h2>Waiting for Approval...</h2>
 	{/if}
->>>>>>> Stashed changes
 </div>
 
 <style>

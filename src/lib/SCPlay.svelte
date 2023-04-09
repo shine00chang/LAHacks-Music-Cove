@@ -8,6 +8,7 @@
       let sc_widget = SC.Widget(soundcloud_iframe);
       sc_widget.unbind(SC.Widget.Events.FINISH);
       sc_widget.bind(SC.Widget.Events.FINISH, () => {
+        console.log("SONG FINISHED", next_song)
         //signal next song in queue
         next_song = true;
       });

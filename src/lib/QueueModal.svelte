@@ -12,13 +12,12 @@
   function removeSong(title, url) {
     const x = current_queue.splice(current_queue.indexOf(title), 1);
     current_queue = current_queue;
-    console.log("b", current_queue)
     const hdr = {};
     const data = {
       event: "song-remove",
       url: url
     };
-    console.log("SC Queue Remove: ", hdr, data);
+    //console.log("SC Queue Remove: ", hdr, data);
     emit(hdr, data);
   }
 
@@ -56,7 +55,7 @@
       description: song_info.description,
       author: nickname,
     };
-    console.log("SC Queue Add: ", hdr, data);
+    //console.log("SC Queue Add: ", hdr, data);
     emit(hdr, data);
     soundcloud_url = "Queued!";
   }
