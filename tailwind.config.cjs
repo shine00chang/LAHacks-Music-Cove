@@ -8,10 +8,8 @@ const config = {
     extend: {},
   },
 
-  plugins: [
-    require('flowbite/plugin')
-  ],
-  darkMode: 'class',
+  plugins: [require("flowbite/plugin")],
+  darkMode: "class",
 };
 
 module.exports = config;

@@ -11,7 +11,7 @@ export class Canvas {
     this.canvas.height = canvas_ele.height;
     this.size = [this.canvas.width, this.canvas.width];
     this.canvas.tabIndex = 1;
-    this.context = this.canvas.getContext('2d');
+    this.context = this.canvas.getContext("2d");
     this.components = [];
     this.events = {};
     //this.event_functions is not meant to be read. internal use only
@@ -22,7 +22,7 @@ export class Canvas {
   update() {
     this.frame += 1;
     this.clear();
-    for (let i=0; i < this.components.length; i++) {
+    for (let i = 0; i < this.components.length; i++) {
       this.components[i].update();
     }
   }
@@ -33,7 +33,7 @@ export class Canvas {
     this.components = [];
     document.body.style.cursor = "default";
     //dont forget to remove all event listeners
-    for (let i=0; i < Object.keys(this.event_functions).length; i++) {
+    for (let i = 0; i < Object.keys(this.event_functions).length; i++) {
       let event = Object.keys(this.event_functions)[i];
       let event_function = this.event_functions[event];
       this.canvas.removeEventListener(event, event_function);
@@ -47,7 +47,7 @@ export class Canvas {
    * @param {[new (name: string) => any]} objects
    * @param {boolean} [overwrite=false]
    */
-  addEvent(event, objects, overwrite=false) {
+  addEvent(event, objects, overwrite = false) {
     //prevent overwriting
     if (this.events[event] && !overwrite) {
       this.events[event] = [].concat(this.events[event], objects);
@@ -62,7 +62,7 @@ export class Canvas {
         if (!event_items) {
           return;
         }
-        for (let i=0; i < event_items.length; i++) {
+        for (let i = 0; i < event_items.length; i++) {
           let component = event_items[i];
           component[event](e);
         }
@@ -78,9 +78,9 @@ export class Canvas {
   }
   //when components no longer exist, get rid of the events for them too
   clearDeadEvents() {
-    for (let i=0; i < Object.keys(this.events).length; i++) {
+    for (let i = 0; i < Object.keys(this.events).length; i++) {
       let event_name = Object.keys(this.events)[i];
-      for (let j=0; j < this.events[event_name].length; j++) {
+      for (let j = 0; j < this.events[event_name].length; j++) {
         let obj = this.events[event_name][j];
         //if component no longer exists
         if (!this.components.includes(obj)) {
@@ -101,7 +101,16 @@ export class Text {
    * @param {number} maxwidth
    * @param {string} identity
    */
-  constructor(canvas, coords, text, text_info, color, stroke_color, maxwidth, identity) {
+  constructor(
+    canvas,
+    coords,
+    text,
+    text_info,
+    color,
+    stroke_color,
+    maxwidth,
+    identity
+  ) {
     this.canvas = canvas;
     this.coords = coords;
     this.text = text;
@@ -121,9 +130,12 @@ export class Text {
     this.canvas.components.push(this);
   }
   customtextchange(text_obj) {
-    console.log(text_obj)
+    console.log(text_obj);
     //if it is "0" then we should let it happen
-    if (text_obj.detail[this.identity] !== undefined && text_obj.detail[this.identity] !== false) {
+    if (
+      text_obj.detail[this.identity] !== undefined &&
+      text_obj.detail[this.identity] !== false
+    ) {
       this.text = text_obj.detail[this.identity];
     }
   }
@@ -143,7 +155,7 @@ export class Text {
     this.canvas.context.font = this.text_info;
     //eg: shadow-white
     if (this.stroke_color) {
-      if (this.stroke_color.startsWith('shadow-')) {
+      if (this.stroke_color.startsWith("shadow-")) {
         if (window.settings.shadow) {
           this.canvas.context.shadowColor = this.stroke_color.split("-")[1];
           this.canvas.context.shadowBlur = this.shadowBlur;
@@ -151,19 +163,29 @@ export class Text {
         }
       } else {
         this.canvas.context.strokeStyle = this.stroke_color;
-        this.canvas.context.strokeText(this.text, this.coords[0], this.coords[1], this.maxwidth);
+        this.canvas.context.strokeText(
+          this.text,
+          this.coords[0],
+          this.coords[1],
+          this.maxwidth
+        );
       }
     }
     if (this.color) {
       this.canvas.context.fillStyle = this.color;
       if (this.maxwidth) {
-        this.canvas.context.fillText(this.text, this.coords[0], this.coords[1], this.maxwidth);
+        this.canvas.context.fillText(
+          this.text,
+          this.coords[0],
+          this.coords[1],
+          this.maxwidth
+        );
       } else {
         this.canvas.context.fillText(this.text, this.coords[0], this.coords[1]);
       }
     }
     if (this.stroke_color) {
-      if (this.stroke_color.startsWith('shadow-')) {
+      if (this.stroke_color.startsWith("shadow-")) {
         //reset
         this.canvas.context.shadowBlur = 0;
         this.canvas.context.lineWidth = 1;
