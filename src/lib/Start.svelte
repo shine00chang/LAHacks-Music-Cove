@@ -1,4 +1,5 @@
 <script>
+  import { Spinner } from 'flowbite-svelte';
   export let nickname = "";
   export let onsubmit;
   $: {
