@@ -37,7 +37,6 @@
 
       <div class= "right-container"style="float:right; margin-right: 20px; justify-content: right">
                 <span style="float:left; margin-left: 20px; margin-top: 10px"><strong>Add New Song: </strong></span>
-                <span style="float:center; margin-left: 10px; margin-right: 10px; margin-top: 10px" on:submit={() => addSong("huh")}></span>
                 <span style="float:right; margin-right: 20px; margin-top: 10px">
                   <button>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -46,6 +45,12 @@
                     </svg>
                   </button>
                 </span>
+
+                <form action="#" method="GET">
+                  <textarea rows="5" cols="50" name="text" placeholder="Enter Soundcloud URL"></textarea>
+                  <br/>
+                  <input type="submit" value="Add New Song"/>
+                </form>
       </div>
   </div>
   </div>
