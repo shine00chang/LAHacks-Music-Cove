@@ -37,12 +37,12 @@
 <div id="bg" class="scroll">
     <h1>MusicCove</h1>
 
-    <form id="form">
+    <form>
         <input id="room-name" type="text" placeholder="Room name..." />
         <button on:click={create_room} style="color: azure">Create</button>
     </form>
 </div>
-<h3 id="q1">What is MusicCove?</h3>
+<h2 id="q1">What is MusicCove?</h2>
 <p>
     MusicCove is a communication website designed for music lovers to connect
     and share their passion for music. Users can create profiles, join groups,
@@ -85,7 +85,7 @@
             rgba(1, 80, 123, 1) 100%
         );
         text-align: center;
-        font-size: 100px;
+        font-size: 75px;
     }
     button {
         font-family: "Lilita One";
@@ -101,7 +101,7 @@
         font-family: "Lilita One";
         color: azure;
         font-size: 100px;
-        height: 80px;
+        height: 150px;
         align-self: center;
     }
     
